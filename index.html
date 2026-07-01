@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Адал Азамат — платформа воспитания честного, ответственного и образованного гражданина Казахстана.">
+  <meta name="keywords" content="Адал Азамат, Казахстан, образование, ценности, финансовая грамотность">
+  <meta property="og:title" content="Адал Азамат — Образовательная платформа">
+  <meta property="og:description" content="Формирование ценностей честности, ответственности, трудолюбия и патриотизма.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/hero-future-school.png">
+  <title>Адал Азамат | Школа будущего Казахстана 2035</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Голографический слой AR -->
+  <div class="holo-layer" aria-hidden="true">
+    <canvas id="particle-canvas"></canvas>
+    <div class="data-lines">
+      <svg class="data-line" viewBox="0 0 200 2"><line x1="0" y1="1" x2="200" y2="1"/></svg>
+      <svg class="data-line" viewBox="0 0 200 2"><line x1="0" y1="1" x2="200" y2="1"/></svg>
+      <svg class="data-line" viewBox="0 0 200 2"><line x1="0" y1="1" x2="200" y2="1"/></svg>
+    </div>
+    <div class="float-formulas">
+      <span class="holo-formula" style="--x:8%;--y:12%;--d:0">y = kx + b</span>
+      <span class="holo-formula" style="--x:85%;--y:18%;--d:1">a² + b² = c²</span>
+      <span class="holo-formula" style="--x:72%;--y:55%;--d:2">S = πr²</span>
+      <span class="holo-formula" style="--x:5%;--y:65%;--d:3">V = abc</span>
+      <span class="holo-formula" style="--x:90%;--y:78%;--d:4">P(A)</span>
+      <span class="holo-formula" style="--x:15%;--y:88%;--d:5">x² + 5x + 6 = 0</span>
+    </div>
+    <div class="float-tenge">
+      <span class="tenge-holo" style="--x:92%;--y:35%;--d:0">₸</span>
+      <span class="tenge-holo" style="--x:3%;--y:42%;--d:1">₸</span>
+      <span class="tenge-holo" style="--x:78%;--y:8%;--d:2">₸</span>
+    </div>
+  </div>
+
+  <!-- Панель миссий Адал Азамат -->
+  <aside class="missions-bar" id="missions-bar" aria-label="Миссии программы Адал Азамат">
+    <div class="missions-inner">
+      <span class="missions-label">Миссии</span>
+      <button class="mission-badge" data-mission="honesty" title="Честность">
+        <span class="badge-glow"></span><span class="badge-icon">🛡️</span><span>Честность</span>
+      </button>
+      <button class="mission-badge" data-mission="responsibility" title="Ответственность">
+        <span class="badge-glow"></span><span class="badge-icon">⚖️</span><span>Ответственность</span>
+      </button>
+      <button class="mission-badge" data-mission="diligence" title="Трудолюбие">
+        <span class="badge-glow"></span><span class="badge-icon">💪</span><span>Трудолюбие</span>
+      </button>
+      <button class="mission-badge" data-mission="patriotism" title="Патриотизм">
+        <span class="badge-glow"></span><span class="badge-icon">🇰🇿</span><span>Патриотизм</span>
+      </button>
+      <button class="mission-badge" data-mission="law" title="Законопослушность">
+        <span class="badge-glow"></span><span class="badge-icon">📜</span><span>Закон</span>
+      </button>
+      <div class="missions-xp"><span id="missions-xp">0</span> XP</div>
+    </div>
+  </aside>
+
+  <div id="loading-screen" aria-hidden="true">
+    <div class="loader-holo-ring"></div>
+    <svg class="loader-emblem" viewBox="0 0 80 80" aria-hidden="true">
+      <circle cx="40" cy="40" r="36" fill="none" stroke="rgba(0,174,239,0.5)" stroke-width="2"/>
+      <circle cx="40" cy="40" r="12" fill="#D4AF37"/>
+      <g stroke="#00AEEF" stroke-width="2" stroke-linecap="round">
+        <line x1="40" y1="4" x2="40" y2="16"/><line x1="40" y1="64" x2="40" y2="76"/>
+        <line x1="4" y1="40" x2="16" y2="40"/><line x1="64" y1="40" x2="76" y2="40"/>
+      </g>
+    </svg>
+    <p>Адал Азамат</p>
+    <span class="loader-sub">Smart Education Kazakhstan 2035</span>
+  </div>
+
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="#hero" class="logo">
+        <svg class="logo-emblem" viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="20" cy="20" r="6" fill="currentColor"/>
+          <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <line x1="20" y1="2" x2="20" y2="8"/><line x1="20" y1="32" x2="20" y2="38"/>
+            <line x1="2" y1="20" x2="8" y2="20"/><line x1="32" y1="20" x2="38" y2="20"/>
+          </g>
+        </svg>
+        <span class="logo-text">Адал <strong>Азамат</strong></span>
+      </a>
+
+      <button class="burger" id="burger-btn" aria-label="Меню" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="main-nav" aria-label="Основное меню">
+        <a href="#hero" class="nav-link active">Главная</a>
+        <a href="#future-scenes" class="nav-link">Школа будущего</a>
+        <a href="#math-lab" class="nav-link">Math AI Lab</a>
+        <div class="nav-dropdown" id="math-direction-dropdown">
+          <button class="nav-link nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-label="Направление: работа с одарёнными детьми по математике">
+            Одарённые · Математика
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <span class="nav-dropdown-label">Направление: работа с одарёнными детьми по математике</span>
+            <a href="math-academy.html" class="nav-dropdown-item nav-dropdown-featured" role="menuitem">
+              <span class="nav-dropdown-icon">🏆</span>
+              <div>
+                <strong>Математическая Академия Будущего</strong>
+                <span>AI Math Olympiad Center · олимпиадная лестница 5–11 класс</span>
+              </div>
+            </a>
+            <div class="nav-dropdown-divider" aria-hidden="true"></div>
+            <span class="nav-dropdown-label">Тренажёры и лаборатории</span>
+            <a href="5kl.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon">👁️</span>
+              <div>
+                <strong>Математическая зоркость</strong>
+                <span>Интерактивный тренажёр · 5 класс</span>
+              </div>
+            </a>
+            <a href="5kl_2.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon">🎯</span>
+              <div>
+                <strong>Math Trainer: Score &amp; Hints</strong>
+                <span>Задачи с подсказками и рейтингом</span>
+              </div>
+            </a>
+            <a href="5kl_4.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon">♟️</span>
+              <div>
+                <strong>Теория игр</strong>
+                <span>Обратная индукция и симметрия</span>
+              </div>
+            </a>
+            <a href="5kl_5.html" class="nav-dropdown-item" role="menuitem">
+              <span class="nav-dropdown-icon">🤖</span>
+              <div>
+                <strong>AI Math Olympiad Center</strong>
+                <span>Футуристическая олимпиадная лаборатория</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <a href="#education-2035" class="nav-link">Образование 2035</a>
+        <a href="finance/finance-trainer.html" class="nav-link">Финансы</a>
+        <a href="#finance-holo" class="nav-link">Экосистема ₸</a>
+        <a href="#about" class="nav-link">О проекте</a>
+        <a href="#contact" class="nav-link">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO — Школа будущего Казахстана -->
+    <section id="hero" class="hero hero-cinematic">
+      <div class="hero-visual" id="hero-art">
+        <img
+          src="assets/images/hero-future-school.png"
+          alt="Гуманоидный робот обучает казахстанских детей в школе будущего — Байтерек, беркут, голографические формулы и финансовые диаграммы"
+          class="hero-main-image"
+          width="1920"
+          height="1080"
+          fetchpriority="high"
+        >
+        <div class="hero-image-overlay" aria-hidden="true"></div>
+        <div class="hero-holo-ui" aria-hidden="true">
+          <div class="holo-ui-panel holo-ui-math">y = kx + b</div>
+          <div class="holo-ui-panel holo-ui-finance">₸ +24%</div>
+          <div class="holo-ui-panel holo-ui-ai">AI Neural Net</div>
+          <div class="holo-ui-panel holo-ui-formula">a² + b² = c²</div>
+        </div>
+      </div>
+
+      <div class="hero-content-overlay">
+        <div class="hero-text">
+          <div class="hero-badge reveal holo-panel-sm">🇰🇿 Smart Education Kazakhstan 2035</div>
+          <h1 class="hero-title reveal">
+            <span class="title-line">АДАЛ</span>
+            <span class="title-line title-gold">АЗАМАТ</span>
+          </h1>
+          <p class="hero-subtitle reveal">
+            Школа будущего Казахстана — где дети учатся вместе с гуманоидными роботами искусственного интеллекта
+          </p>
+          <div class="hero-tags reveal">
+            <span class="hero-tag">🤖 Гуманоидные роботы</span>
+            <span class="hero-tag">👧👦 Дети Казахстана</span>
+            <span class="hero-tag">₸ Финансы</span>
+            <span class="hero-tag">🧮 Математика</span>
+          </div>
+          <div class="hero-actions reveal">
+            <a href="#future-scenes" class="btn btn-primary btn-holo">
+              <span class="btn-particles"></span>
+              <span>Школа будущего</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="#math-lab" class="btn btn-outline btn-holo">Math AI Lab</a>
+          </div>
+          <div class="hero-trust reveal">
+            <div class="trust-item"><strong>5000+</strong> учащихся</div>
+            <div class="trust-divider"></div>
+            <div class="trust-item"><strong>34+</strong> уроков</div>
+            <div class="trust-divider"></div>
+            <div class="trust-item"><strong>100%</strong> программа РК</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-wave" aria-hidden="true">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+          <path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,50 1440,40 L1440,80 L0,80Z" fill="#f8fafc"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ГАЛЕРЕЯ СЦЕН — Выставка будущего -->
+    <section id="future-scenes" class="section section-expo">
+      <div class="section-header reveal">
+        <span class="section-tag holo-tag">Expo Future City · World AI Summit</span>
+        <h2 class="section-title">Школа будущего Казахстана</h2>
+        <p class="section-desc">Гуманоидные роботы и счастливые дети Казахстана учатся вместе — как на выставках Smart Education China и Museum of the Future Dubai</p>
+      </div>
+
+      <div class="expo-gallery">
+        <article class="expo-card expo-card-featured reveal">
+          <div class="expo-image-wrap">
+            <img src="assets/images/hero-future-school.png" alt="Гуманоидный робот и казахстанские дети в AI-лаборатории с Байтереком будущего" loading="lazy">
+            <div class="expo-image-glow"></div>
+          </div>
+          <div class="expo-card-body">
+            <span class="expo-num">01</span>
+            <h3>AI-лаборатория будущего Казахстана</h3>
+            <p>Гуманоидный робот обучает детей с планшетами. Голографические формулы, финансовые диаграммы, цифровой беркут и Байтерек 2035.</p>
+          </div>
+        </article>
+
+        <article class="expo-card reveal" style="--delay:1">
+          <div class="expo-image-wrap">
+            <img src="assets/images/scene-finance.png" alt="Робот обучает детей финансовой грамотности с голографическими тенге" loading="lazy">
+          </div>
+          <div class="expo-card-body">
+            <span class="expo-num">02</span>
+            <h3>Финансовая грамотность</h3>
+            <p>Гуманоид объясняет бюджет, тенге и сбережения. Дети в школьной форме с национальными жилетами.</p>
+          </div>
+        </article>
+
+        <article class="expo-card reveal" style="--delay:2">
+          <div class="expo-image-wrap">
+            <img src="assets/images/scene-math.png" alt="Робот помогает детям решать математические задачи на голографической доске" loading="lazy">
+          </div>
+          <div class="expo-card-body">
+            <span class="expo-num">03</span>
+            <h3>Математические задачи</h3>
+            <p>AI-наставник показывает уравнения и графики функций. Дети решают задачи с планшетами.</p>
+          </div>
+        </article>
+
+        <article class="expo-card reveal" style="--delay:3">
+          <div class="expo-image-wrap">
+            <img src="assets/images/scene-budget.png" alt="Дети управляют виртуальным семейным бюджетом с роботом-консультантом" loading="lazy">
+          </div>
+          <div class="expo-card-body">
+            <span class="expo-num">04</span>
+            <h3>Семейный бюджет</h3>
+            <p>Дети управляют виртуальным бюджетом семьи на голографических экранах под руководством робота.</p>
+          </div>
+        </article>
+
+        <article class="expo-card reveal" style="--delay:4">
+          <div class="expo-image-wrap">
+            <img src="assets/images/scene-stem-lab.png" alt="Гуманоид показывает детям 3D-графики и геометрические фигуры" loading="lazy">
+          </div>
+          <div class="expo-card-body">
+            <span class="expo-num">05</span>
+            <h3>3D-графики функций</h3>
+            <p>Гуманоид демонстрирует 3D-объекты, координатную плоскость и интерактивные графики.</p>
+          </div>
+        </article>
+
+        <article class="expo-card reveal" style="--delay:5">
+          <div class="expo-image-wrap">
+            <img src="assets/images/scene-national-ai.png" alt="Дети в национальной одежде изучают искусственный интеллект с роботом" loading="lazy">
+          </div>
+          <div class="expo-card-body">
+            <span class="expo-num">06</span>
+            <h3>Национальная культура × AI</h3>
+            <p>Дети в камзолах и национальных костюмах изучают нейросети и искусственный интеллект.</p>
+          </div>
+        </article>
+
+        <article class="expo-card reveal" style="--delay:6">
+          <div class="expo-image-wrap">
+            <img src="assets/images/scene-missions.png" alt="Робот и дети выполняют миссии программы Адал Азамат" loading="lazy">
+          </div>
+          <div class="expo-card-body">
+            <span class="expo-num">07</span>
+            <h3>Миссии «Адал Азамат»</h3>
+            <p>Робот и дети вместе проходят миссии честности, ответственности и патриотизма.</p>
+          </div>
+        </article>
+
+        <article class="expo-card reveal" style="--delay:7">
+          <div class="expo-image-wrap">
+            <img src="assets/images/scene-stem-lab.png" alt="STEM-класс с роботами и голограммами в Казахстане 2035" loading="lazy">
+          </div>
+          <div class="expo-card-body">
+            <span class="expo-num">08</span>
+            <h3>STEM-класс с роботами</h3>
+            <p>Робототехника, голограммы и геометрия — полноценный STEM-класс будущего.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- VALUES -->
+    <section id="values" class="section">
+      <div class="section-showcase reveal">
+        <img src="assets/images/scene-missions.png" alt="Гуманоидный робот и казахстанские дети выполняют миссии программы Адал Азамат" class="showcase-image" loading="lazy">
+        <div class="showcase-caption holo-panel">
+          <strong>Миссии «Адал Азамат»</strong>
+          <p>Дети и гуманоидный робот вместе проходят миссии честности, ответственности и патриотизма</p>
+        </div>
+      </div>
+      <div class="section-header reveal">
+        <span class="section-tag">Ценности</span>
+        <h2 class="section-title">Ценности программы</h2>
+        <p class="section-desc">Нравственные ориентиры, которые формируют достойного гражданина Казахстана</p>
+      </div>
+
+      <div class="values-grid">
+        <article class="value-card holo-card reveal" style="--delay:0" data-value="honesty">
+          <div class="value-achievement">🏅</div>
+          <div class="value-icon" aria-hidden="true">🤝</div>
+          <h3>Честность</h3>
+          <p>Быть правдивым в словах и поступках, не обманывать себя и окружающих</p>
+          <button class="value-mission-btn" data-mission="honesty">Принять миссию +50 XP</button>
+        </article>
+        <article class="value-card holo-card reveal" style="--delay:1" data-value="responsibility">
+          <div class="value-achievement">⭐</div>
+          <div class="value-icon" aria-hidden="true">⚖️</div>
+          <h3>Ответственность</h3>
+          <p>Отвечать за свои решения, заботиться о близких и обществе</p>
+          <button class="value-mission-btn" data-mission="responsibility">Принять миссию +50 XP</button>
+        </article>
+        <article class="value-card holo-card reveal" style="--delay:2" data-value="diligence">
+          <div class="value-achievement">💎</div>
+          <div class="value-icon" aria-hidden="true">💪</div>
+          <h3>Трудолюбие</h3>
+          <p>Ценить труд, стремиться к знаниям и профессиональному росту</p>
+          <button class="value-mission-btn" data-mission="diligence">Принять миссию +50 XP</button>
+        </article>
+        <article class="value-card holo-card reveal" style="--delay:3" data-value="patriotism">
+          <div class="value-achievement">🇰🇿</div>
+          <div class="value-icon" aria-hidden="true">🇰🇿</div>
+          <h3>Патриотизм</h3>
+          <p>Любить Родину, уважать историю, культуру и традиции народа</p>
+          <button class="value-mission-btn" data-mission="patriotism">Принять миссию +50 XP</button>
+        </article>
+        <article class="value-card holo-card reveal" style="--delay:4" data-value="respect">
+          <div class="value-achievement">🌟</div>
+          <div class="value-icon" aria-hidden="true">🙏</div>
+          <h3>Уважение</h3>
+          <p>Уважать старших, сверстников, природу и национальные традиции</p>
+          <button class="value-mission-btn" data-mission="respect">Принять миссию +50 XP</button>
+        </article>
+        <article class="value-card holo-card reveal" style="--delay:5" data-value="law">
+          <div class="value-achievement">📜</div>
+          <div class="value-icon" aria-hidden="true">📜</div>
+          <h3>Законопослушность</h3>
+          <p>Соблюдать законы, правила и нормы общественной жизни</p>
+          <button class="value-mission-btn" data-mission="law">Принять миссию +50 XP</button>
+        </article>
+      </div>
+    </section>
+
+    <div class="ornament-divider" aria-hidden="true"></div>
+
+    <!-- MATH AI LAB -->
+    <section id="math-lab" class="section section-lab">
+      <div class="section-showcase reveal">
+        <img src="assets/images/scene-math.png" alt="Гуманоидный робот помогает казахстанским детям решать математические задачи" class="showcase-image" loading="lazy">
+        <div class="showcase-caption holo-panel">
+          <strong>Math AI Lab</strong>
+          <p>Гуманоидный наставник показывает графики и формулы — дети учатся с искусственным интеллектом</p>
+        </div>
+      </div>
+      <div class="lab-bg" aria-hidden="true">
+        <div class="lab-grid"></div>
+      </div>
+      <div class="section-header reveal">
+        <span class="section-tag holo-tag">AI × Математика</span>
+        <h2 class="section-title">Math AI Lab</h2>
+        <p class="section-desc">Искусственный интеллект, виртуальная доска, графики и геометрический конструктор в одной лаборатории</p>
+      </div>
+
+      <div class="lab-grid-layout">
+        <div class="lab-panel holo-panel reveal">
+          <div class="panel-header">
+            <span class="panel-dot"></span><span class="panel-dot"></span><span class="panel-dot"></span>
+            <span>AI-решатель задач</span>
+          </div>
+          <div class="panel-body">
+            <textarea id="math-input" rows="3" placeholder="Введите задачу: x² + 5x + 6 = 0"></textarea>
+            <button id="math-solve" class="btn btn-primary btn-small">Решить с AI</button>
+            <div id="math-result" class="math-result" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <div class="lab-panel holo-panel reveal">
+          <div class="panel-header">
+            <span class="panel-dot"></span><span class="panel-dot"></span><span class="panel-dot"></span>
+            <span>Виртуальная доска</span>
+          </div>
+          <div class="panel-body">
+            <canvas id="whiteboard" width="400" height="220" aria-label="Виртуальная доска"></canvas>
+            <div class="board-tools">
+              <button class="board-tool active" data-color="#00AEEF">Синий</button>
+              <button class="board-tool" data-color="#D4AF37">Золотой</button>
+              <button class="board-tool" data-color="#0A2A66">Тёмный</button>
+              <button id="board-clear" class="board-tool">Очистить</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lab-panel holo-panel reveal">
+          <div class="panel-header">
+            <span class="panel-dot"></span><span class="panel-dot"></span><span class="panel-dot"></span>
+            <span>Интерактивный график</span>
+          </div>
+          <div class="panel-body">
+            <label class="lab-label">f(x) = <input type="text" id="graph-fn" value="x*x - 4" class="lab-input"></label>
+            <canvas id="graph-canvas" width="400" height="220" aria-label="График функции"></canvas>
+          </div>
+        </div>
+
+        <div class="lab-panel holo-panel reveal">
+          <div class="panel-header">
+            <span class="panel-dot"></span><span class="panel-dot"></span><span class="panel-dot"></span>
+            <span>Геометрический конструктор</span>
+          </div>
+          <div class="panel-body geo-constructor">
+            <div class="geo-shapes">
+              <button class="geo-btn active" data-shape="triangle">△</button>
+              <button class="geo-btn" data-shape="square">□</button>
+              <button class="geo-btn" data-shape="circle">○</button>
+              <button class="geo-btn" data-shape="hexagon">⬡</button>
+            </div>
+            <canvas id="geo-canvas" width="400" height="180" aria-label="Геометрический конструктор"></canvas>
+          </div>
+        </div>
+
+        <div class="lab-panel holo-panel reveal">
+          <div class="panel-header">
+            <span class="panel-dot"></span><span class="panel-dot"></span><span class="panel-dot"></span>
+            <span>Финансовые вычисления</span>
+          </div>
+          <div class="panel-body">
+            <div class="calc-row">
+              <label>Сумма (₸)<input type="number" id="calc-sum" value="100000" class="lab-input"></label>
+              <label>Ставка %<input type="number" id="calc-rate" value="12" class="lab-input"></label>
+              <label>Месяцев<input type="number" id="calc-months" value="12" class="lab-input"></label>
+            </div>
+            <button id="calc-run" class="btn btn-gold btn-small">Рассчитать накопления</button>
+            <div id="calc-result" class="math-result"></div>
+            <canvas id="savings-chart" width="400" height="120" aria-label="График накоплений"></canvas>
+          </div>
+        </div>
+
+        <div class="lab-panel holo-panel reveal">
+          <div class="panel-header">
+            <span class="panel-dot"></span><span class="panel-dot"></span><span class="panel-dot"></span>
+            <span>Симулятор семейного бюджета</span>
+          </div>
+          <div class="panel-body">
+            <div class="budget-row">
+              <label>Доход (₸)<input type="number" id="budget-income" value="500000" class="lab-input"></label>
+              <label>Жильё<input type="number" id="budget-housing" value="120000" class="lab-input"></label>
+              <label>Еда<input type="number" id="budget-food" value="80000" class="lab-input"></label>
+              <label>Образование<input type="number" id="budget-edu" value="50000" class="lab-input"></label>
+              <label>Накопления<input type="number" id="budget-save" value="50000" class="lab-input"></label>
+            </div>
+            <button id="budget-run" class="btn btn-primary btn-small">Анализ бюджета</button>
+            <div id="budget-result" class="math-result"></div>
+            <canvas id="budget-chart" width="400" height="140" aria-label="Диаграмма расходов"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SMART EDUCATION 2035 -->
+    <section id="education-2035" class="section section-alt section-edu">
+      <div class="section-showcase reveal">
+        <img src="assets/images/scene-stem-lab.png" alt="STEM-класс будущего — дети и гуманоидный робот с голографическими 3D-фигурами" class="showcase-image" loading="lazy">
+        <div class="showcase-caption holo-panel">
+          <strong>STEM Education 2035</strong>
+          <p>Дети Казахстана работают с роботами, голограммами и искусственным интеллектом</p>
+        </div>
+      </div>
+      <div class="section-header reveal">
+        <span class="section-tag holo-tag">Smart Education Kazakhstan 2035</span>
+        <h2 class="section-title">Современное образование</h2>
+        <p class="section-desc">STEM, искусственный интеллект, робототехника и навыки будущего — в цифровой школе нового поколения</p>
+      </div>
+
+      <div class="edu-grid">
+        <article class="edu-card reveal" style="--delay:0">
+          <div class="edu-icon-3d" data-icon="stem"><span>⚛️</span></div>
+          <h3>STEM Education</h3>
+          <p>Наука, технологии, инженерия и математика</p>
+          <div class="edu-stat"><span class="edu-num" data-target="94">0</span><span class="edu-unit">% вовлечённости</span></div>
+        </article>
+        <article class="edu-card reveal" style="--delay:1">
+          <div class="edu-icon-3d" data-icon="ai"><span>🧠</span></div>
+          <h3>Artificial Intelligence</h3>
+          <p>Машинное обучение и нейросети для школьников</p>
+          <div class="edu-stat"><span class="edu-num" data-target="1200">0</span><span class="edu-unit">+ AI-задач</span></div>
+        </article>
+        <article class="edu-card reveal" style="--delay:2">
+          <div class="edu-icon-3d" data-icon="robot"><span>🤖</span></div>
+          <h3>Robotics</h3>
+          <p>Робототехника и программирование Arduino</p>
+          <div class="edu-stat"><span class="edu-num" data-target="48">0</span><span class="edu-unit">лабораторий</span></div>
+        </article>
+        <article class="edu-card reveal" style="--delay:3">
+          <div class="edu-icon-3d" data-icon="finance"><span>₸</span></div>
+          <h3>Financial Literacy</h3>
+          <p>Тенге, бюджет, инвестиции и финансовая безопасность</p>
+          <div class="edu-stat"><span class="edu-num" data-target="34">0</span><span class="edu-unit">уроков</span></div>
+        </article>
+        <article class="edu-card reveal" style="--delay:4">
+          <div class="edu-icon-3d" data-icon="math"><span>∑</span></div>
+          <h3>Mathematics</h3>
+          <p>Алгебра, геометрия и интерактивные задачи</p>
+          <div class="edu-stat"><span class="edu-num" data-target="2500">0</span><span class="edu-unit">+ задач</span></div>
+        </article>
+        <article class="edu-card reveal" style="--delay:5">
+          <div class="edu-icon-3d" data-icon="think"><span>💡</span></div>
+          <h3>Critical Thinking</h3>
+          <p>Анализ, логика и принятие решений</p>
+          <div class="edu-stat"><span class="edu-num" data-target="86">0</span><span class="edu-unit">% рост навыков</span></div>
+        </article>
+        <article class="edu-card reveal" style="--delay:6">
+          <div class="edu-icon-3d" data-icon="digital"><span>🌐</span></div>
+          <h3>Digital Citizenship</h3>
+          <p>Безопасность, этика и цифровая грамотность</p>
+          <div class="edu-stat"><span class="edu-num" data-target="100">0</span><span class="edu-unit">% охват</span></div>
+        </article>
+        <article class="edu-card reveal" style="--delay:7">
+          <div class="edu-icon-3d" data-icon="future"><span>🚀</span></div>
+          <h3>Future Skills</h3>
+          <p>Навыки профессий завтрашнего дня</p>
+          <div class="edu-stat"><span class="edu-num" data-target="15">0</span><span class="edu-unit">треков</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- DIRECTIONS -->
+    <section id="directions" class="section section-alt">
+      <div class="section-header reveal">
+        <span class="section-tag">Направления</span>
+        <h2 class="section-title">Направления программы</h2>
+        <p class="section-desc">Комплексное развитие личности через интерактивные образовательные модули</p>
+      </div>
+
+      <div class="directions-grid">
+        <a href="finance/finance-trainer.html" class="direction-card direction-featured reveal">
+          <span class="direction-badge">Интерактив</span>
+          <div class="direction-icon">💰</div>
+          <h3>Финансовая грамотность</h3>
+          <p>Тенге, бюджет, сбережения, банки Казахстана и финансовая безопасность</p>
+          <span class="direction-link">Открыть тренажёр →</span>
+        </a>
+        <a href="#math-lab" class="direction-card direction-featured reveal" style="background:linear-gradient(145deg,#0c3d5c,#0A2A66)">
+          <span class="direction-badge">AI</span>
+          <div class="direction-icon">🧮</div>
+          <h3>Math AI Lab</h3>
+          <p>Искусственный интеллект, графики, геометрия и финансовые вычисления</p>
+          <span class="direction-link">Открыть лабораторию →</span>
+        </a>
+        <a href="math-academy.html" class="direction-card direction-featured reveal" style="background:linear-gradient(145deg,#1a0a3c,#0A2A66)">
+          <span class="direction-badge">Олимпиада</span>
+          <div class="direction-icon">🏆</div>
+          <h3>Математическая Академия Будущего</h3>
+          <p>Одарённые дети Казахстана: олимпиадная лестница, AI-наставник, банк задач и геймификация</p>
+          <span class="direction-link">Открыть академию →</span>
+        </a>
+        <article class="direction-card reveal">
+          <div class="direction-icon">🛡️</div>
+          <h3>Цифровая безопасность</h3>
+          <p>Защита данных, безопасность в интернете и ответственное поведение онлайн</p>
+        </article>
+        <article class="direction-card reveal">
+          <div class="direction-icon">🌿</div>
+          <h3>Экологическая культура</h3>
+          <p>Бережное отношение к природе, экологические традиции и устойчивое развитие</p>
+        </article>
+        <article class="direction-card reveal">
+          <div class="direction-icon">👨‍👩‍👧‍👦</div>
+          <h3>Семейные ценности</h3>
+          <p>Уважение к родителям, забота о близких и сохранение семейных традиций</p>
+        </article>
+        <article class="direction-card reveal">
+          <div class="direction-icon">🎯</div>
+          <h3>Профориентация</h3>
+          <p>Выбор профессии, планирование карьеры и развитие профессиональных навыков</p>
+        </article>
+        <article class="direction-card reveal">
+          <div class="direction-icon">⭐</div>
+          <h3>Лидерство</h3>
+          <p>Инициативность, командная работа и готовность нести ответственность</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- FINANCE HOLOGRAMS -->
+    <section id="finance-holo" class="section section-finance-holo">
+      <div class="section-showcase reveal">
+        <img src="assets/images/scene-finance.png" alt="Гуманоидный робот обучает детей финансовой грамотности с голографическими тенге" class="showcase-image" loading="lazy">
+        <div class="showcase-caption holo-panel">
+          <strong>Финансовая экосистема ₸</strong>
+          <p>Робот-наставник объясняет бюджет, накопления и национальную валюту</p>
+        </div>
+      </div>
+      <div class="finance-holo-bg" aria-hidden="true"></div>
+      <div class="section-header reveal">
+        <span class="section-tag holo-tag">Финансовая экосистема</span>
+        <h2 class="section-title">Финансовые голограммы</h2>
+        <p class="section-desc">Тенге, накопления, инвестиции и семейный бюджет — визуализированы в реальном времени</p>
+      </div>
+
+      <div class="finance-holo-grid">
+        <div class="finance-holo-panel holo-panel reveal">
+          <div class="coin-field" aria-hidden="true">
+            <span class="coin-holo" style="--i:0">₸</span>
+            <span class="coin-holo" style="--i:1">₸</span>
+            <span class="coin-holo" style="--i:2">₸</span>
+            <span class="coin-holo" style="--i:3">₸</span>
+            <span class="coin-holo" style="--i:4">₸</span>
+          </div>
+          <h3>Парящие тенге</h3>
+          <p>Светящиеся монеты национальной валюты</p>
+        </div>
+
+        <div class="finance-holo-panel holo-panel reveal">
+          <div class="bill-stack" aria-hidden="true">
+            <div class="bill-holo" style="--r:-4deg">2000 ₸</div>
+            <div class="bill-holo" style="--r:2deg">5000 ₸</div>
+            <div class="bill-holo" style="--r:-2deg">10000 ₸</div>
+          </div>
+          <h3>Анимированные банкноты</h3>
+          <p>Голографические купюры тенге</p>
+        </div>
+
+        <div class="finance-holo-panel holo-panel reveal">
+          <canvas id="growth-chart" width="320" height="160" aria-label="График роста накоплений"></canvas>
+          <h3>Рост накоплений</h3>
+          <p>Инвестиционные индикаторы KASE</p>
+        </div>
+
+        <div class="finance-holo-panel holo-panel reveal">
+          <div class="holo-calculator">
+            <div class="calc-display" id="holo-calc-display">0</div>
+            <div class="calc-keys">
+              <button class="calc-key" data-val="7">7</button><button class="calc-key" data-val="8">8</button><button class="calc-key" data-val="9">9</button>
+              <button class="calc-key" data-val="4">4</button><button class="calc-key" data-val="5">5</button><button class="calc-key" data-val="6">6</button>
+              <button class="calc-key" data-val="1">1</button><button class="calc-key" data-val="2">2</button><button class="calc-key" data-val="3">3</button>
+              <button class="calc-key" data-val="0">0</button><button class="calc-key" data-val=".">.</button><button class="calc-key" data-val="C">C</button>
+              <button class="calc-key calc-op" data-val="+">+</button><button class="calc-key calc-op" data-val="-">−</button><button class="calc-key calc-op" data-val="=">=</button>
+            </div>
+          </div>
+          <h3>Голографический калькулятор</h3>
+        </div>
+      </div>
+
+      <div class="finance-cta reveal">
+        <a href="finance/finance-trainer.html" class="btn btn-gold btn-holo">Открыть финансовый тренажёр →</a>
+        <a href="smile-race.html" class="btn btn-outline btn-holo">Smile Race — настольная игра →</a>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section id="stats" class="stats-section">
+      <div class="stats-inner">
+        <div class="stats-grid">
+          <article class="stat-card reveal">
+            <div class="stat-icon">👨‍🎓</div>
+            <div class="stat-value">
+              <span class="stat-number" data-target="5000">0</span><span class="stat-suffix">+</span>
+            </div>
+            <p class="stat-label">учащихся</p>
+          </article>
+          <article class="stat-card reveal">
+            <div class="stat-icon">📚</div>
+            <div class="stat-value">
+              <span class="stat-number" data-target="100">0</span><span class="stat-suffix">+</span>
+            </div>
+            <p class="stat-label">материалов</p>
+          </article>
+          <article class="stat-card reveal">
+            <div class="stat-icon">💰</div>
+            <div class="stat-value">
+              <span class="stat-number" data-target="34">0</span><span class="stat-suffix">+</span>
+            </div>
+            <p class="stat-label">уроков финансовой грамотности</p>
+          </article>
+          <article class="stat-card reveal">
+            <div class="stat-icon">✅</div>
+            <div class="stat-value">
+              <span class="stat-number" data-target="100">0</span><span class="stat-suffix">%</span>
+            </div>
+            <p class="stat-label">соответствие программе Адал Азамат</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MATERIALS -->
+    <section id="materials" class="section">
+      <div class="section-header reveal">
+        <span class="section-tag">Материалы</span>
+        <h2 class="section-title">Образовательные материалы</h2>
+        <p class="section-desc">Учебные модули, практические задания и интерактивные тренажёры</p>
+      </div>
+
+      <div class="materials-grid">
+        <article class="material-card reveal">
+          <div class="material-num">01</div>
+          <h3>Азбука финансовой грамотности</h3>
+          <p>34-часовой курс для 5–6 классов: бюджет, сбережения, безопасные платежи</p>
+        </article>
+        <article class="material-card material-highlight reveal">
+          <div class="material-num">02</div>
+          <h3>Интерактивный тренажёр</h3>
+          <p>Таблица умножения, тенге, банки КЗ, депозиты и инвестиции в игровой форме</p>
+          <a href="finance/finance-trainer.html" class="btn btn-small btn-gold">Открыть тренажёр</a>
+        </article>
+        <article class="material-card reveal">
+          <div class="material-num">05</div>
+          <h3>Smile Race — цифровая настольная игра</h3>
+          <p>Финансовая грамотность в игровой форме: 12 лет жизни, биржа, счастье и таблица лидеров</p>
+          <a href="smile-race.html" class="btn btn-small btn-primary">Играть</a>
+        </article>
+        <article class="material-card reveal">
+          <div class="material-num">03</div>
+          <h3>Методические пособия</h3>
+          <p>Календарно-тематическое планирование, паспорт программы и практические листы</p>
+        </article>
+        <article class="material-card reveal">
+          <div class="material-num">04</div>
+          <h3>Ценностные ориентиры</h3>
+          <p>Материалы по воспитанию честности, патриотизма и уважения к традициям</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TESTS -->
+    <section id="tests" class="section section-alt">
+      <div class="tests-banner reveal">
+        <div class="tests-content">
+          <span class="section-tag">Тестирование</span>
+          <h2>Проверь свои знания</h2>
+          <p>Интерактивные тесты и викторины по финансовой грамотности и ценностям программы «Адал Азамат»</p>
+          <a href="finance/finance-trainer.html" class="btn btn-primary">Пройти финансовый тренажёр</a>
+        </div>
+        <div class="tests-cards" aria-hidden="true">
+          <div class="test-card-mini">?</div>
+          <div class="test-card-mini">₸</div>
+          <div class="test-card-mini">✓</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="about-grid">
+        <div class="about-content reveal">
+          <span class="section-tag">О проекте</span>
+          <h2 class="section-title">Программа «Адал Азамат»</h2>
+          <p>Государственная образовательная программа Республики Казахстан направлена на формирование у подрастающего поколения ценностей честности, ответственности, трудолюбия, патриотизма, уважения к закону, национальным традициям и семейным ценностям.</p>
+          <p>Платформа объединяет интерактивные материалы, тренажёры и практические задания для школьников.</p>
+          <ul class="about-list">
+            <li><span class="check">✓</span> Соответствие государственным стандартам</li>
+            <li><span class="check">✓</span> Интерактивный формат обучения</li>
+            <li><span class="check">✓</span> Национальные ценности и современные навыки</li>
+            <li><span class="check">✓</span> Доступно на всех устройствах</li>
+          </ul>
+        </div>
+        <div class="about-visual reveal">
+          <div class="about-card glass holo-panel">
+            <div class="about-kz-elements" aria-hidden="true">
+              <svg class="about-baiterek" viewBox="0 0 60 120"><ellipse cx="30" cy="15" rx="18" ry="6" fill="rgba(212,175,55,0.5)" stroke="#D4AF37"/><rect x="26" y="15" width="8" height="90" rx="3" fill="rgba(0,174,239,0.2)" stroke="#00AEEF"/></svg>
+              <svg class="about-yurt" viewBox="0 0 80 60"><path d="M40,5 L75,50 L5,50Z" fill="none" stroke="#D4AF37" stroke-width="1.5"/><circle cx="40" cy="30" r="8" fill="none" stroke="#00AEEF"/></svg>
+              <svg class="about-eagle" viewBox="0 0 60 40"><path d="M30,20 Q15,5 5,15 Q20,18 30,25 Q40,18 55,15 Q45,5 30,20Z" fill="rgba(212,175,55,0.3)" stroke="#D4AF37"/></svg>
+            </div>
+            <div class="about-robot-mini" aria-hidden="true">
+              <svg viewBox="0 0 80 100"><rect x="25" y="50" width="30" height="35" rx="8" fill="#fff" stroke="#D4AF37" stroke-width="1.5"/><circle cx="40" cy="35" r="18" fill="#fff" stroke="#D4AF37" stroke-width="1.5"/><rect x="32" y="28" width="8" height="6" rx="2" fill="#00AEEF"/><rect x="44" y="28" width="8" height="6" rx="2" fill="#00AEEF"/></svg>
+            </div>
+            <div class="about-emblem">
+              <svg viewBox="0 0 200 200" fill="none">
+                <circle cx="100" cy="100" r="80" stroke="#D4AF37" stroke-width="2" fill="rgba(10,42,102,0.04)"/>
+                <g opacity="0.4" stroke="#D4AF37" stroke-width="1" fill="none">
+                  <path d="M100,30 Q115,50 100,70 Q85,50 100,30"/><path d="M70,100 Q90,115 110,100 Q90,85 70,100"/>
+                </g>
+                <circle cx="100" cy="100" r="25" fill="#0A2A66"/>
+                <g stroke="#00A8A8" stroke-width="2" stroke-linecap="round">
+                  <line x1="100" y1="30" x2="100" y2="50"/>
+                  <line x1="100" y1="150" x2="100" y2="170"/>
+                  <line x1="30" y1="100" x2="50" y2="100"/>
+                  <line x1="150" y1="100" x2="170" y2="100"/>
+                </g>
+              </svg>
+            </div>
+            <p class="about-motto">Адал Азамат —<br>честный гражданин</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section section-alt">
+      <div class="section-header reveal">
+        <span class="section-tag">Контакты</span>
+        <h2 class="section-title">Свяжитесь с нами</h2>
+      </div>
+
+      <div class="contact-grid">
+        <article class="contact-card reveal">
+          <h3>Контактная информация</h3>
+          <ul class="contact-list">
+            <li>
+              <span class="contact-icon">📍</span>
+              <div><strong>Адрес</strong><p>Республика Казахстан, г. Астана</p></div>
+            </li>
+            <li>
+              <span class="contact-icon">📧</span>
+              <div><strong>Email</strong><p>info@adalazamat.kz</p></div>
+            </li>
+            <li>
+              <span class="contact-icon">📞</span>
+              <div><strong>Телефон</strong><p>+7 (7172) 00-00-00</p></div>
+            </li>
+          </ul>
+        </article>
+        <article class="contact-card reveal">
+          <h3>Форма обратной связи</h3>
+          <form id="feedback-form">
+            <input type="text" id="name" placeholder="Ваше имя" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <textarea id="message" rows="4" placeholder="Ваше сообщение" required></textarea>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+          </form>
+          <p id="form-status" class="form-status"></p>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-stripe" aria-hidden="true"></div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#hero" class="logo logo-footer">
+          <svg class="logo-emblem" viewBox="0 0 40 40" aria-hidden="true">
+            <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="20" cy="20" r="6" fill="currentColor"/>
+          </svg>
+          <span class="logo-text">Адал <strong>Азамат</strong></span>
+        </a>
+        <p>Платформа воспитания честного, ответственного и образованного гражданина Казахстана</p>
+      </div>
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <ul>
+          <li>info@adalazamat.kz</li>
+          <li>+7 (7172) 00-00-00</li>
+          <li>г. Астана, Казахстан</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Социальные сети</h4>
+        <ul class="footer-socials">
+          <li><a href="https://t.me/" target="_blank" rel="noopener">Telegram</a></li>
+          <li><a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://tiktok.com/" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Документы</h4>
+        <ul>
+          <li><a href="#privacy">Политика конфиденциальности</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Адал Азамат — Образовательная платформа Республики Казахстан</p>
+    </div>
+  </footer>
+
+  <dialog id="privacy-dialog" class="privacy-dialog">
+    <button id="close-privacy" class="btn btn-small btn-outline" type="button">Закрыть</button>
+    <h3>Политика конфиденциальности</h3>
+    <p>Настоящая политика определяет порядок обработки и защиты персональных данных пользователей платформы «Адал Азамат».</p>
+    <p>Мы собираем только те данные, которые вы добровольно предоставляете через форму обратной связи. Данные не передаются третьим лицам.</p>
+    <p>Используя сайт, вы соглашаетесь с условиями данной политики.</p>
+  </dialog>
+
+  <button id="to-top" aria-label="Наверх">↑</button>
+
+  <!-- Гуманоидный проводник -->
+  <div class="humanoid-guide" id="humanoid-guide">
+    <div class="guide-speech holo-panel" id="guide-speech">
+      <p id="guide-speech-text">Сәлеметсіз бе! Я ваш AI-наставник. Проведу по школе будущего Казахстана!</p>
+    </div>
+    <button class="guide-avatar-btn" id="ai-assistant-btn" aria-label="Гуманоидный AI-наставник" aria-expanded="false">
+      <img src="assets/images/humanoid-guide.png" alt="Гуманоидный робот-наставник Адал Азамат" class="guide-avatar-img" width="120" height="160">
+      <span class="guide-pulse"></span>
+      <span class="guide-label">AI-наставник</span>
+    </button>
+    <div class="ai-assistant-panel holo-panel guide-panel" id="ai-assistant-panel" hidden>
+      <div class="ai-panel-header">
+        <img src="assets/images/humanoid-guide.png" alt="" class="guide-panel-avatar" width="48" height="64">
+        <div>
+          <strong>Гуманоидный наставник</strong>
+          <span class="guide-status">● Онлайн · Адал Азамат</span>
+        </div>
+        <button id="ai-close" aria-label="Закрыть">×</button>
+      </div>
+      <div class="guide-quick-nav">
+        <a href="#future-scenes" class="guide-nav-link">Школа будущего</a>
+        <a href="#math-lab" class="guide-nav-link">Math AI Lab</a>
+        <a href="math-academy.html" class="guide-nav-link">Мат. академия</a>
+        <a href="#finance-holo" class="guide-nav-link">Финансы ₸</a>
+        <a href="finance/finance-trainer.html" class="guide-nav-link">Тренажёр</a>
+      </div>
+      <div class="ai-messages" id="ai-messages">
+        <div class="ai-msg ai-bot">Сәлеметсіз бе! Я гуманоидный AI-наставник. Помогу с математикой, финансами и миссиями программы.</div>
+      </div>
+      <form id="ai-form" class="ai-form">
+        <input type="text" id="ai-input" placeholder="Спросите наставника..." autocomplete="off">
+        <button type="submit" class="btn btn-primary btn-small">→</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

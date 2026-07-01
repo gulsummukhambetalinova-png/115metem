@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Теория игр: Метод обратной индукции и Симметрия</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; background: #f4f7f6; color: #333; }
+        .theory-section { background: #fff; padding: 25px; border-radius: 12px; border-left: 6px solid #2563eb; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 25px; }
+        .practice-section { background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #ddd; }
+        code { background: #eef; padding: 2px 5px; border-radius: 4px; font-weight: bold; }
+        .btn { padding: 10px 20px; cursor: pointer; background: #2563eb; color: white; border: none; border-radius: 6px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="theory-section">
+    <h1>Теория игр / Ойын теориясы</h1>
+    
+    <h2>1. Метод «Обратной индукции» (Контрольные точки)</h2>
+    <p><b>RU:</b> Суть: начинаем с конца. Шаг игры равен <code>k + 1</code>. Выигрышные позиции: <code>P = N - (k + 1)</code>.</p>
+    <p><b>KK:</b> Мәні: соңынан бастаймыз. Ойын қадамы <code>k + 1</code>. Жеңімпаз позициялар: <code>P = N - (k + 1)</code>.</p>
+    
+
+    <h2>2. Принцип симметрии (Стратегия второго игрока)</h2>
+    <p><b>RU:</b> Если кучи равны, побеждает второй (зеркальные ходы). Если нет, первый делает их равными.</p>
+    <p><b>KK:</b> Егер үймелер тең болса, екінші ойыншы ұтады (айналық жүрістер). Тең болмаса, біріншісі оларды теңестіреді.</p>
+    
+</div>
+
+<div class="practice-section">
+    <h2>Интерактивті жаттығу / Интерактивный тренажер</h2>
+    
+    <div>
+        <p><b>Игра до 66 (ход 1-9):</b> Введите число, чтобы начать стратегию "6"</p>
+        <p>Сумма / Қосынды: <b id="s">0</b></p>
+        <input type="number" id="n" min="1" max="9">
+        <button class="btn" onclick="play()">Жүріс жасау / Ход</button>
+    </div>
+</div>
+
+<script>
+    let s = 0;
+    function play() {
+        let v = parseInt(document.getElementById('n').value);
+        if(v < 1 || v > 9) return alert("1-9!");
+        s += v;
+        // Стратегия: дополнение до 10 (шаг игры 9+1)
+        // Стратегия: 10-ға толтыру (ойын қадамы 9+1)
+        let comp = 10 - v;
+        s += comp;
+        document.getElementById('s').innerText = s;
+        if(s >= 66) alert("Победа компьютера! / Компьютер жеңді!");
+    }
+</script>
+
+</body>
+</html>

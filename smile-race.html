@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smile Race — настольная игра | Адал Азамат</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f7ff;
+      --text: #161b31;
+      --primary: #3563ff;
+      --secondary: #7a4dff;
+      --gold: #f6b93b;
+      --glass: rgba(255, 255, 255, 0.65);
+      --border: rgba(255, 255, 255, 0.35);
+      --shadow: 0 10px 30px rgba(53, 99, 255, 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Noto Sans", sans-serif;
+      background: radial-gradient(circle at 20% 20%, #e9efff, var(--bg));
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      background: rgba(255, 255, 255, 0.85);
+      border-bottom: 1px solid rgba(53, 99, 255, 0.12);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .page-header a {
+      color: #0A2A66;
+      text-decoration: none;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .page-header a:hover { color: #3563ff; }
+
+    .page-header h1 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #0A2A66;
+    }
+
+    .section {
+      width: min(1200px, 92%);
+      margin: 2rem auto 3rem;
+    }
+
+    .glass {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      border-radius: 16px;
+    }
+
+    .card {
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card h3 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.35rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 0.72rem 1.1rem;
+      font-weight: 700;
+      font-family: "Montserrat", sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--primary);
+    }
+
+    .btn-small {
+      padding: 0.4rem 0.65rem;
+      font-size: 0.9rem;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .smile-race-wrap h4 { margin: 0.7rem 0; }
+
+    .smile-race-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(160px, 1fr));
+      gap: 0.5rem;
+      margin: 0.8rem 0;
+    }
+
+    .smile-race-actions,
+    .smile-race-shop,
+    .smile-race-market {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .smile-race-log {
+      max-height: 200px;
+      overflow: auto;
+      border: 1px dashed rgba(122, 77, 255, 0.35);
+      border-radius: 10px;
+      padding: 0.7rem;
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .smile-race-log p {
+      margin: 0.35rem 0;
+      font-size: 0.95rem;
+    }
+
+    .sr-track {
+      display: grid;
+      grid-template-columns: repeat(11, 1fr);
+      gap: 0.35rem;
+      margin: 0.8rem 0;
+    }
+
+    .sr-cell {
+      border: 1px solid rgba(122, 77, 255, 0.25);
+      border-radius: 8px;
+      text-align: center;
+      padding: 0.35rem;
+      font-size: 0.85rem;
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    .sr-cell.active {
+      background: linear-gradient(135deg, var(--gold), #ffe89a);
+      color: #4a3700;
+      font-weight: 800;
+    }
+
+    .sr-board {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      margin: 0.75rem 0;
+    }
+
+    .sr-board div {
+      border: 1px dashed rgba(122, 77, 255, 0.35);
+      border-radius: 10px;
+      padding: 0.5rem;
+    }
+
+    .leaderboard {
+      padding: 1rem 1.5rem;
+    }
+
+    .leaderboard h3 {
+      font-family: "Montserrat", sans-serif;
+      margin-bottom: 0.75rem;
+    }
+
+    .leaderboard ol {
+      padding-left: 1.25rem;
+    }
+
+    .leaderboard li {
+      margin: 0.35rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .smile-race-stats { grid-template-columns: 1fr 1fr; }
+      .sr-track { grid-template-columns: repeat(6, 1fr); }
+      .sr-board { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <a href="index.html">← Адал Азамат</a>
+    <h1>Smile Race</h1>
+    <a href="finance/finance-trainer.html">Финансы →</a>
+  </header>
+
+  <main class="section">
+    <article class="card glass reveal smile-race-wrap">
+      <h3>Настольная игра: Smile Race (цифровая версия)</h3>
+      <p>Режим по вашим инструкциям: 1 ход = 1 год жизни, 5 этапов хода, карта игрока и шкала счастья.</p>
+      <div class="smile-race-stats">
+        <p><strong>Год:</strong> <span id="sr-year">0</span></p>
+        <p><strong>Фаза:</strong> <span id="sr-phase">Подготовка</span></p>
+        <p><strong>Деньги:</strong> <span id="sr-money">0</span> $</p>
+        <p><strong>Счастье:</strong> <span id="sr-happiness">0</span></p>
+        <p><strong>Работа:</strong> <span id="sr-job">-</span></p>
+        <p><strong>Акции:</strong> <span id="sr-stocks">0</span> шт</p>
+        <p><strong>Цена акции:</strong> <span id="sr-stock-price">10</span> $</p>
+        <p><strong>Налоги:</strong> <span id="sr-tax">0</span> $</p>
+        <p><strong>Платеж за жилье:</strong> <span id="sr-home-payment">0</span> $</p>
+      </div>
+      <div id="sr-track" class="sr-track"></div>
+      <div class="smile-race-actions">
+        <button id="sr-start" class="btn btn-primary">Начать игру</button>
+        <button id="sr-next-turn" class="btn btn-secondary" disabled>Сделать ход</button>
+      </div>
+      <div class="smile-race-shop">
+        <h4>Карты деятельности и имущества</h4>
+        <button class="btn btn-small sr-buy" data-item="education">Учеба (300$)</button>
+        <button class="btn btn-small sr-buy" data-item="insurance">Страховка (200$)</button>
+        <button class="btn btn-small sr-buy" data-item="smartphone">Техника/смартфон (150$)</button>
+        <button class="btn btn-small sr-buy" data-item="taxi">Подработка такси (250$)</button>
+        <button class="btn btn-small sr-buy" data-item="courier">Подработка курьер (180$)</button>
+        <button class="btn btn-small sr-buy" data-item="coffee">Актив: кофейня (900$)</button>
+      </div>
+      <div class="smile-race-market">
+        <h4>Этап 3: Фондовая биржа</h4>
+        <button id="sr-buy-stock" class="btn btn-small">Купить 1 акцию</button>
+        <button id="sr-sell-stock" class="btn btn-small">Продать 1 акцию</button>
+      </div>
+      <div class="sr-board">
+        <div><strong>Деятельность:</strong> <span id="sr-activity-board">Работа</span></div>
+        <div><strong>Расходы:</strong> <span id="sr-expense-board">Налоги и прочее</span></div>
+        <div><strong>Активы:</strong> <span id="sr-assets-board">Акции, депозит</span></div>
+        <div><strong>Имущество:</strong> <span id="sr-property-board">Техника, транспорт</span></div>
+      </div>
+      <p><strong>Инвентарь:</strong> <span id="sr-inventory">пусто</span></p>
+      <div id="sr-log" class="smile-race-log"></div>
+    </article>
+    <div class="leaderboard glass reveal">
+      <h3>Таблица лидеров</h3>
+      <ol id="leaderboard-list"></ol>
+    </div>
+  </main>
+
+<script>
+const byId = (id) => document.getElementById(id);
+
+let totalPoints = Number(localStorage.getItem("finedu_points") || 0);
+
+function saveProgress() {
+  localStorage.setItem("finedu_points", String(totalPoints));
+}
+
+function renderTopStats() {}
+
+function renderBadges() {}
+
+function renderLeaderboard() {
+  const raw = JSON.parse(localStorage.getItem("finedu_leaderboard") || "[]");
+  const userName = localStorage.getItem("finedu_username") || "Ученик";
+  const updated = [...raw.filter((x) => x.name !== userName), { name: userName, score: totalPoints }]
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 10);
+  localStorage.setItem("finedu_leaderboard", JSON.stringify(updated));
+
+  const list = byId("leaderboard-list");
+  if (!list) return;
+  list.innerHTML = "";
+  updated.forEach((x) => {
+    const li = document.createElement("li");
+    li.textContent = `${x.name} — ${x.score} баллов`;
+    list.appendChild(li);
+  });
+}
+
+// ----------------------------
+// Игра Smile Race (по методичке)
+// ----------------------------
+const srElements = {
+  year: byId("sr-year"),
+  phase: byId("sr-phase"),
+  money: byId("sr-money"),
+  happiness: byId("sr-happiness"),
+  job: byId("sr-job"),
+  stocks: byId("sr-stocks"),
+  stockPrice: byId("sr-stock-price"),
+  tax: byId("sr-tax"),
+  homePayment: byId("sr-home-payment"),
+  track: byId("sr-track"),
+  activityBoard: byId("sr-activity-board"),
+  expenseBoard: byId("sr-expense-board"),
+  assetsBoard: byId("sr-assets-board"),
+  propertyBoard: byId("sr-property-board"),
+  inventory: byId("sr-inventory"),
+  log: byId("sr-log"),
+  startBtn: byId("sr-start"),
+  nextBtn: byId("sr-next-turn"),
+  buyStockBtn: byId("sr-buy-stock"),
+  sellStockBtn: byId("sr-sell-stock")
+};
+
+const srState = {
+  active: false,
+  year: 0,
+  phase: "Подготовка",
+  money: 0,
+  happiness: 0,
+  stocks: 0,
+  stockPrice: 10,
+  taxAmount: 0,
+  homePayment: 50,
+  inventory: new Set(),
+  currentJob: "Базовая работа"
+};
+
+const srPhases = [
+  "1. Доходы",
+  "2. Расходы",
+  "3. Биржа",
+  "4. Жизненная ситуация",
+  "5. Фиксация счастья"
+];
+
+const srShop = {
+  education: { title: "Образование", price: 300, happiness: 8 },
+  insurance: { title: "Страховка", price: 200, happiness: 5 },
+  smartphone: { title: "Смартфон", price: 150, happiness: 3 },
+  taxi: { title: "Подработка таксиста", price: 250, happiness: 5 },
+  courier: { title: "Подработка курьера", price: 180, happiness: 4 },
+  coffee: { title: "Кофейня", price: 900, happiness: 15 }
+};
+
+const srLifeSituations = [
+  { text: "Нужна сложная операция.", loss: 1000, requires: "insurance", safeText: "Есть страховка: лечение оплачено." },
+  { text: "Сломался телефон для учебы.", loss: 200, requires: "smartphone", safeText: "Смартфон уже есть, дополнительных трат нет." },
+  { text: "Победа в школьном конкурсе.", gain: 250, happy: 6 },
+  { text: "Непредвиденный ремонт дома.", loss: 300, happy: -4 },
+  { text: "Скидка на нужные товары.", gain: 120, happy: 2 }
+];
+
+function srLog(message) {
+  if (!srElements.log) return;
+  const row = document.createElement("p");
+  row.textContent = `• ${message}`;
+  srElements.log.prepend(row);
+}
+
+function srUpdateUi() {
+  if (!srElements.year) return;
+  srElements.year.textContent = String(srState.year);
+  srElements.phase.textContent = srState.phase;
+  srElements.money.textContent = srState.money.toLocaleString("ru-RU");
+  srElements.happiness.textContent = String(srState.happiness);
+  srElements.job.textContent = srState.currentJob;
+  srElements.stocks.textContent = String(srState.stocks);
+  srElements.stockPrice.textContent = String(srState.stockPrice);
+  srElements.tax.textContent = srState.taxAmount.toLocaleString("ru-RU");
+  srElements.homePayment.textContent = srState.homePayment.toLocaleString("ru-RU");
+  srElements.activityBoard.textContent = [srState.currentJob, srState.inventory.has("courier") ? "Курьер" : "", srState.inventory.has("taxi") ? "Такси" : "", srState.inventory.has("education") ? "Учеба" : ""]
+    .filter(Boolean)
+    .join(", ");
+  srElements.expenseBoard.textContent = `Платеж ${srState.homePayment}$ + налоги ${srState.taxAmount}$`;
+  srElements.assetsBoard.textContent = `Акции: ${srState.stocks}, депозит: ${Math.max(0, srState.money - 200)}$`;
+  srElements.propertyBoard.textContent = [srState.inventory.has("smartphone") ? "Смартфон" : "Нет техники", srState.inventory.has("coffee") ? "Кофейня" : ""]
+    .filter(Boolean)
+    .join(", ");
+  srElements.inventory.textContent = srState.inventory.size
+    ? [...srState.inventory].map((key) => srShop[key]?.title || key).join(", ")
+    : "пусто";
+}
+
+function srApplyHappinessFromInventory() {
+  let inventoryHappy = 0;
+  srState.inventory.forEach((key) => {
+    inventoryHappy += srShop[key]?.happiness || 0;
+  });
+  srState.happiness = Math.max(0, inventoryHappy + Math.floor(srState.money / 300));
+}
+
+function srStart() {
+  srState.active = true;
+  srState.year = 0;
+  srState.phase = "Подготовка";
+  srState.money = 100;
+  srState.happiness = 0;
+  srState.stocks = 0;
+  srState.stockPrice = 10;
+  srState.taxAmount = 0;
+  srState.homePayment = 50;
+  srState.inventory = new Set();
+  srState.currentJob = "Базовая работа";
+  if (srElements.log) srElements.log.innerHTML = "";
+  srLog("Старт игры: получено 100$ стартового капитала, выбрана базовая работа.");
+  srRenderTrack();
+  srUpdateUi();
+  srElements.nextBtn.disabled = false;
+}
+
+function srRoll(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function srProcessTurn() {
+  if (!srState.active) return;
+  srState.year += 1;
+  srState.phase = srPhases[0];
+
+  let salary = 200;
+  if (srState.inventory.has("education")) salary += 120;
+  if (srState.inventory.has("courier")) salary += 80;
+  if (srState.inventory.has("taxi")) salary += 100;
+  srState.money += salary;
+  srLog(`Год ${srState.year}: доход по работе +${salary}$.`);
+
+  srState.phase = srPhases[1];
+  const baseExpenses = srState.homePayment + 10;
+  const taxes = [100, 200, 500][srRoll(0, 2)];
+  srState.taxAmount = taxes;
+  srState.money -= (baseExpenses + taxes);
+  srLog(`Расходы и налоги: -${baseExpenses + taxes}$ (налоги ${taxes}$).`);
+
+  srState.phase = srPhases[2];
+  const marketDelta = srRoll(-3, 5);
+  srState.stockPrice = Math.max(3, srState.stockPrice + marketDelta);
+  srLog(`Биржа: цена акции изменилась до ${srState.stockPrice}$.`);
+
+  srState.phase = srPhases[3];
+  const ev = srLifeSituations[srRoll(0, srLifeSituations.length - 1)];
+  if (ev.requires && srState.inventory.has(ev.requires)) {
+    srLog(`Жизненная ситуация: ${ev.text} ${ev.safeText}`);
+  } else {
+    if (ev.loss) {
+      srState.money -= ev.loss;
+      srLog(`Жизненная ситуация: ${ev.text} Потери: -${ev.loss}$.`);
+    }
+    if (ev.gain) {
+      srState.money += ev.gain;
+      srLog(`Жизненная ситуация: бонус +${ev.gain}$.`);
+    }
+    if (ev.happy) srState.happiness += ev.happy;
+  }
+
+  if (srState.money < 0) {
+    srState.happiness = Math.max(0, srState.happiness - 5);
+    srLog("Баланс отрицательный: счастье снижено.");
+  }
+
+  srState.phase = srPhases[4];
+  srApplyHappinessFromInventory();
+  srRenderTrack();
+  srUpdateUi();
+
+  if (srState.year >= 12) {
+    srState.active = false;
+    srElements.nextBtn.disabled = true;
+    const finalScore = srState.happiness + Math.floor(srState.money / 100);
+    totalPoints += Math.max(5, finalScore);
+    saveProgress();
+    renderTopStats();
+    renderBadges();
+    renderLeaderboard();
+    srLog(`Игра завершена. Итог: счастье ${srState.happiness}, деньги ${srState.money}$, очки +${Math.max(5, finalScore)}.`);
+  }
+}
+
+function srBuyItem(key) {
+  if (!srState.active) return;
+  const item = srShop[key];
+  if (!item) return;
+  if (srState.inventory.has(key)) {
+    srLog(`${item.title} уже куплена.`);
+    return;
+  }
+  if (srState.money < item.price) {
+    srLog(`Недостаточно денег для покупки: ${item.title}.`);
+    return;
+  }
+  srState.money -= item.price;
+  srState.inventory.add(key);
+  if (key === "coffee") srState.homePayment += 5;
+  srApplyHappinessFromInventory();
+  srLog(`Покупка: ${item.title} за ${item.price}$.`);
+  srUpdateUi();
+}
+
+function srBuyStock() {
+  if (!srState.active) return;
+  if (srState.money < srState.stockPrice) {
+    srLog("Недостаточно денег для покупки акции.");
+    return;
+  }
+  srState.money -= srState.stockPrice;
+  srState.stocks += 1;
+  srLog(`Куплена 1 акция за ${srState.stockPrice}$.`);
+  srUpdateUi();
+}
+
+function srSellStock() {
+  if (!srState.active) return;
+  if (srState.stocks <= 0) {
+    srLog("Нет акций для продажи.");
+    return;
+  }
+  srState.stocks -= 1;
+  srState.money += srState.stockPrice;
+  srLog(`Продана 1 акция за ${srState.stockPrice}$.`);
+  srUpdateUi();
+}
+
+function srRenderTrack() {
+  if (!srElements.track) return;
+  srElements.track.innerHTML = "";
+  const marks = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110];
+  marks.forEach((m) => {
+    const cell = document.createElement("div");
+    cell.className = "sr-cell";
+    if (srState.happiness >= m) cell.classList.add("active");
+    cell.textContent = m;
+    srElements.track.appendChild(cell);
+  });
+}
+
+if (srElements.startBtn) {
+  srElements.startBtn.addEventListener("click", srStart);
+  srElements.nextBtn.addEventListener("click", srProcessTurn);
+  srElements.buyStockBtn.addEventListener("click", srBuyStock);
+  srElements.sellStockBtn.addEventListener("click", srSellStock);
+  document.querySelectorAll(".sr-buy").forEach((btn) => {
+    btn.addEventListener("click", () => srBuyItem(btn.dataset.item));
+  });
+  srRenderTrack();
+  srUpdateUi();
+}
+
+if (!localStorage.getItem("finedu_username")) {
+  const username = prompt("Введите имя для таблицы лидеров:", "Ученик");
+  localStorage.setItem("finedu_username", (username || "Ученик").trim() || "Ученик");
+}
+
+renderLeaderboard();
+</script>
+</body>
+</html>

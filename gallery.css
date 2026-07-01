@@ -1,0 +1,342 @@
+:root {
+  --ma8-primary: #0A2A66;
+  --ma8-secondary: #00AEEF;
+  --ma8-accent: #D4AF37;
+  --ma8-bg: #f0f6ff;
+  --ma8-card: #ffffff;
+  --ma8-text: #1a2744;
+  --ma8-muted: #5a6b8a;
+}
+
+.academy-8-class {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.academy-8-hero {
+  background: linear-gradient(135deg, var(--ma8-primary) 0%, #0d3a5c 100%);
+  color: white;
+  border-radius: 20px;
+  padding: 1.5rem 1.7rem;
+  box-shadow: 0 12px 32px rgba(10, 42, 102, 0.22);
+}
+
+.academy-8-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ma8-accent);
+  margin-bottom: 0.45rem;
+}
+
+.academy-8-hero h2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.4rem;
+  margin-bottom: 0.45rem;
+}
+
+.academy-8-hero p {
+  color: rgba(255,255,255,0.82);
+  max-width: 700px;
+  line-height: 1.5;
+}
+
+.academy-8-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.95rem;
+}
+
+.academy-8-meta span {
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.variant-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.variant-card {
+  border: 0;
+  background: var(--ma8-card);
+  border-radius: 18px;
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-height: 220px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(10, 42, 102, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  border: 1px solid rgba(10, 42, 102, 0.08);
+  text-align: left;
+}
+
+.variant-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(10, 42, 102, 0.14);
+  border-color: rgba(0, 174, 239, 0.2);
+}
+
+.variant-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--ma8-accent), #f0d98d);
+  color: var(--ma8-primary);
+}
+
+.variant-card h3 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.05rem;
+  color: var(--ma8-primary);
+}
+
+.variant-card p {
+  color: var(--ma8-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.variant-card small {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--ma8-secondary);
+  font-weight: 700;
+  margin-top: auto;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.gallery-card {
+  background: var(--ma8-card);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 26px rgba(10, 42, 102, 0.08);
+  border: 1px solid rgba(10, 42, 102, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1rem 0.65rem;
+  gap: 0.5rem;
+}
+
+.gallery-card-head strong {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.93rem;
+  color: var(--ma8-primary);
+}
+
+.gallery-card-head span {
+  color: var(--ma8-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.gallery-card-preview {
+  position: relative;
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #eef5ff, #f9fbff);
+  cursor: zoom-in;
+}
+
+.gallery-card-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.gallery-card-preview:hover img {
+  transform: scale(1.03);
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  font-size: 2.2rem;
+  color: var(--ma8-muted);
+  background: repeating-linear-gradient(135deg, rgba(10,42,102,0.04), rgba(10,42,102,0.04) 12px, rgba(255,255,255,0.02) 12px, rgba(255,255,255,0.02) 24px);
+}
+
+.gallery-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0.85rem 1rem 1rem;
+}
+
+.ma8-action-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: rgba(10, 42, 102, 0.08);
+  color: var(--ma8-primary);
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.ma8-action-btn:hover {
+  background: rgba(0, 174, 239, 0.16);
+  transform: translateY(-1px);
+}
+
+.ma8-empty {
+  background: var(--ma8-card);
+  border-radius: 18px;
+  padding: 1.25rem;
+  color: var(--ma8-muted);
+  box-shadow: 0 8px 24px rgba(10, 42, 102, 0.06);
+}
+
+.ma8-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 6, 20, 0.86);
+  backdrop-filter: blur(8px);
+  padding: 1rem;
+}
+
+.ma8-lightbox.open {
+  display: flex;
+}
+
+.ma8-lightbox-inner {
+  position: relative;
+  width: min(100%, 1100px);
+  height: min(88vh, 900px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ma8-lightbox-image-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+  user-select: none;
+}
+
+.ma8-lightbox-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  cursor: grab;
+  transform-origin: center center;
+  transition: transform 0.15s ease;
+}
+
+.ma8-lightbox-image.dragging {
+  cursor: grabbing;
+}
+
+.ma8-lightbox-toolbar {
+  position: absolute;
+  top: 0.9rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 1;
+}
+
+.ma8-lightbox-toolbar button {
+  border: 0;
+  background: rgba(255,255,255,0.18);
+  color: white;
+  border-radius: 999px;
+  padding: 0.55rem 0.8rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.ma8-lightbox-nav {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+
+.ma8-lightbox-nav button {
+  pointer-events: auto;
+  margin: 0 0.5rem;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.ma8-lightbox-info {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(10, 42, 102, 0.72);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+body.ma8-lock {
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .variant-grid,
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .variant-grid,
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  .academy-8-hero {
+    padding: 1.2rem;
+  }
+}

@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Математическая Академия | Адал Азамат</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="gallery.css">
+  <style>
+    :root {
+      --navy: #0A2A66;
+      --navy-light: #123d8a;
+      --navy-dark: #061a40;
+      --teal: #00A8A8;
+      --teal-light: #33bdbd;
+      --blue: #00AEEF;
+      --gold: #D4AF37;
+      --gold-light: #e8cc6a;
+      --gold-dark: #b8942a;
+      --white: #ffffff;
+      --bg: #f0f6ff;
+      --bg-alt: #e3edf9;
+      --text: #1a2744;
+      --text-muted: #5a6b8a;
+      --font-heading: "Montserrat", sans-serif;
+      --font-body: "Noto Sans", sans-serif;
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+      --radius: 14px;
+      --sidebar-w: 270px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ════════ HEADER ════════ */
+    .top-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 64px;
+      background: linear-gradient(90deg, var(--navy-dark) 0%, var(--navy) 60%, #0d3d5c 100%);
+      display: flex; align-items: center;
+      padding: 0 1.5rem;
+      gap: 1rem;
+      box-shadow: 0 2px 20px rgba(10,42,102,0.4);
+    }
+    .top-bar .logo {
+      display: flex; align-items: center; gap: 0.6rem;
+      color: var(--white);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .top-bar .logo svg { width: 32px; height: 32px; }
+    .top-bar .logo strong { color: var(--gold); }
+    .top-bar-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--gold-light);
+      letter-spacing: 0.06em;
+      flex: 1;
+      text-align: center;
+    }
+    .top-bar-right {
+      display: flex; align-items: center; gap: 0.8rem;
+      flex-shrink: 0;
+    }
+    .xp-badge {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: var(--navy-dark);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+    .back-link {
+      color: var(--gold-light);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.3rem;
+      transition: color var(--transition);
+    }
+    .back-link:hover { color: var(--white); }
+
+    /* ════════ LAYOUT ════════ */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+      padding-top: 64px;
+    }
+
+    /* ════════ SIDEBAR ════════ */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      background: linear-gradient(180deg, var(--navy-dark) 0%, #0c2d5e 50%, #0d3a5c 100%);
+      position: fixed;
+      top: 64px; left: 0; bottom: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      z-index: 100;
+      box-shadow: 4px 0 24px rgba(10,42,102,0.3);
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold-dark) transparent;
+    }
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 4px; }
+
+    .sidebar-header {
+      padding: 1.2rem 1.2rem 0.8rem;
+      border-bottom: 1px solid rgba(212,175,55,0.2);
+    }
+    .sidebar-header h2 {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    /* ── Казахский орнамент разделитель ── */
+    .ornament-line {
+      width: 100%;
+      height: 12px;
+      margin: 0.5rem 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='12'%3E%3Cpath d='M0 6 Q5 0 10 6 Q15 12 20 6 Q25 0 30 6 Q35 12 40 6' fill='none' stroke='%23D4AF37' stroke-width='1' opacity='0.5'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-size: 40px 12px;
+    }
+
+    /* ── Grade groups ── */
+    .grade-group { border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+    .grade-toggle {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.75rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: var(--white);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.03em;
+      transition: background var(--transition);
+      position: relative;
+      text-align: left;
+    }
+    .grade-toggle:hover { background: rgba(0,174,239,0.12); }
+    .grade-toggle.active { background: rgba(0,174,239,0.18); }
+
+    .grade-num {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), #0076b6);
+      color: var(--white);
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 0.85rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      border: 2px solid rgba(212,175,55,0.5);
+      box-shadow: 0 2px 8px rgba(0,174,239,0.3);
+      /* Казахский орнамент: внешнее кольцо */
+      position: relative;
+    }
+    .grade-num::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px dashed rgba(212,175,55,0.4);
+      pointer-events: none;
+    }
+
+    .grade-label { flex: 1; }
+    .grade-arrow {
+      font-size: 0.7rem;
+      opacity: 0.6;
+      transition: transform var(--transition);
+    }
+    .grade-toggle.active .grade-arrow { transform: rotate(180deg); }
+
+    /* Подменю */
+    .grade-submenu {
+      display: none;
+      flex-direction: column;
+      padding: 0.4rem 0 0.6rem 1rem;
+      background: rgba(0,0,0,0.15);
+    }
+    .grade-submenu.open { display: flex; }
+
+    .sub-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      padding: 0.52rem 1rem 0.52rem 0.8rem;
+      color: rgba(255,255,255,0.75);
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 500;
+      border-radius: 8px;
+      margin: 0.1rem 0.3rem;
+      transition: all var(--transition);
+      display: flex; align-items: center; gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .sub-btn::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 0;
+      background: linear-gradient(90deg, rgba(0,174,239,0.3), transparent);
+      transition: width var(--transition);
+    }
+    .sub-btn:hover::before, .sub-btn.active-sub::before { width: 100%; }
+    .sub-btn:hover, .sub-btn.active-sub {
+      color: var(--white);
+      background: rgba(0,174,239,0.15);
+    }
+    .sub-btn.active-sub {
+      color: var(--gold-light);
+      font-weight: 700;
+    }
+    .sub-submenu {
+      display: none;
+      flex-direction: column;
+      padding: 0.2rem 0 0.2rem 0.9rem;
+      gap: 0.1rem;
+    }
+    .sub-submenu.open { display: flex; }
+    .sub-subtitle {
+      padding: 0.28rem 0.4rem 0.18rem 0.5rem;
+      color: var(--gold-light);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+    .sub-btn.sub-btn-child {
+      margin: 0.08rem 0;
+      padding-left: 0.95rem;
+      font-size: 0.78rem;
+    }
+    .sub-toggle {
+      justify-content: space-between;
+      padding-right: 0.8rem;
+    }
+    .sub-toggle .sub-arrow {
+      font-size: 0.7rem;
+      opacity: 0.7;
+      transition: transform var(--transition);
+    }
+    .sub-toggle.active .sub-arrow { transform: rotate(180deg); }
+    .sub-icon { font-size: 0.9rem; flex-shrink: 0; }
+
+    a.sub-btn { text-decoration: none; }
+
+    .sidebar-trainers {
+      margin-top: 0.5rem;
+      padding-bottom: 1rem;
+      border-top: 1px solid rgba(212,175,55,0.15);
+    }
+
+    /* Орнамент на кнопках: золотой уголок */
+    .grade-toggle {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cpath d='M0 0 L8 0 L8 2 L2 2 L2 8 L0 8 Z' fill='%23D4AF37' opacity='0.35'/%3E%3C/svg%3E"),
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cpath d='M14 14 L6 14 L6 12 L12 12 L12 6 L14 6 Z' fill='%23D4AF37' opacity='0.35'/%3E%3C/svg%3E");
+      background-repeat: no-repeat, no-repeat;
+      background-position: 2px 2px, calc(100% - 22px) calc(100% - 2px);
+    }
+
+    /* ════════ MAIN CONTENT ════════ */
+    .main-content {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      padding: 2rem 2.5rem;
+      min-height: calc(100vh - 64px);
+    }
+
+    /* ── Hero баннер раздела ── */
+    .academy-hero {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, #0d3a5c 50%, #0c2d5e 100%);
+      border-radius: 20px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 8px 32px rgba(10,42,102,0.3);
+    }
+    .academy-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 80% 50%, rgba(0,174,239,0.12) 0%, transparent 60%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect x='0' y='0' width='60' height='60' fill='none' stroke='rgba(212,175,55,0.06)' stroke-width='1'/%3E%3Cpath d='M0 30 Q15 20 30 30 Q45 40 60 30' fill='none' stroke='rgba(212,175,55,0.08)' stroke-width='1'/%3E%3C/svg%3E");
+      background-size: cover, 60px 60px;
+      pointer-events: none;
+    }
+    .hero-text-block { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 0.6rem;
+    }
+    .hero-title span { color: var(--gold-light); }
+    .hero-sub {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      max-width: 480px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 1.5rem;
+      position: relative; z-index: 1;
+      flex-shrink: 0;
+    }
+    .hero-stat {
+      text-align: center;
+      color: var(--white);
+    }
+    .hero-stat strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+    .hero-stat span {
+      font-size: 0.72rem;
+      opacity: 0.65;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Уровень баннер ── */
+    .level-bar {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      box-shadow: 0 4px 16px rgba(10,42,102,0.08);
+      border: 1px solid rgba(0,174,239,0.15);
+    }
+    .level-bar .level-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .level-bar h3 {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: 0.15rem;
+    }
+    .level-bar p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .level-progress-wrap {
+      flex: 1;
+      margin-left: auto;
+      max-width: 220px;
+    }
+    .level-progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+    .level-bar-track {
+      height: 8px;
+      border-radius: 4px;
+      background: var(--bg-alt);
+      overflow: hidden;
+    }
+    .level-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+      transition: width 0.8s ease;
+    }
+
+    /* ── Панель контента ── */
+    .content-panel {
+      background: var(--white);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(10,42,102,0.08);
+      border: 1px solid rgba(0,174,239,0.1);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      background: linear-gradient(90deg, var(--navy) 0%, #0d3a5c 100%);
+      padding: 1.2rem 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .panel-header::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent, var(--gold));
+    }
+    .panel-header h2 {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--white);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .panel-meta {
+      display: flex; align-items: center; gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .badge-pill {
+      background: rgba(212,175,55,0.2);
+      color: var(--gold-light);
+      border: 1px solid rgba(212,175,55,0.4);
+      border-radius: 20px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      padding: 0.2rem 0.7rem;
+      letter-spacing: 0.05em;
+    }
+
+    .panel-body { padding: 1.8rem; }
+
+    /* ── Вкладки тем ── */
+    .topic-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .topic-tab {
+      background: var(--bg-alt);
+      border: 2px solid transparent;
+      border-radius: 10px;
+      padding: 0.5rem 1rem;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .topic-tab:hover { border-color: var(--teal); color: var(--teal); }
+    .topic-tab.active {
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      color: var(--white);
+      border-color: var(--navy);
+      box-shadow: 0 3px 12px rgba(10,42,102,0.25);
+    }
+
+    /* ── Задания ── */
+    .tasks-list { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .task-card {
+      border: 2px solid var(--bg-alt);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .task-card:hover { border-color: rgba(0,174,239,0.3); box-shadow: 0 4px 16px rgba(0,174,239,0.1); }
+    .task-card.correct { border-color: #22c55e; background: rgba(34,197,94,0.03); }
+    .task-card.wrong { border-color: #ef4444; background: rgba(239,68,68,0.03); }
+
+    .task-head {
+      background: var(--bg-alt);
+      padding: 0.9rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .task-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      color: var(--white);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.75rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .task-difficulty {
+      margin-left: auto;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 8px;
+      letter-spacing: 0.04em;
+    }
+    .diff-easy { background: rgba(34,197,94,0.12); color: #16a34a; }
+    .diff-med { background: rgba(234,179,8,0.12); color: #b45309; }
+    .diff-hard { background: rgba(239,68,68,0.12); color: #dc2626; }
+    .diff-olymp { background: rgba(139,92,246,0.12); color: #7c3aed; }
+
+    .task-q {
+      padding: 1rem 1.2rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .task-q .formula {
+      display: inline-block;
+      background: var(--navy-dark);
+      color: var(--gold-light);
+      font-family: "Courier New", monospace;
+      font-size: 0.95em;
+      padding: 0.15em 0.5em;
+      border-radius: 6px;
+      letter-spacing: 0.03em;
+    }
+
+    .task-options {
+      padding: 0 1.2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .option-btn {
+      background: var(--bg);
+      border: 2px solid rgba(10,42,102,0.1);
+      border-radius: 10px;
+      padding: 0.65rem 1rem;
+      text-align: left;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--blue);
+      background: rgba(0,174,239,0.06);
+      color: var(--navy);
+    }
+    .option-btn.selected { border-color: var(--navy); background: rgba(10,42,102,0.07); }
+    .option-btn.correct-ans {
+      border-color: #22c55e;
+      background: rgba(34,197,94,0.1);
+      color: #15803d;
+      font-weight: 700;
+    }
+    .option-btn.wrong-ans {
+      border-color: #ef4444;
+      background: rgba(239,68,68,0.1);
+      color: #b91c1c;
+    }
+    .option-btn:disabled { cursor: default; }
+    .opt-letter {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(10,42,102,0.1);
+      color: var(--navy);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.72rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .task-input-row {
+      padding: 0 1.2rem 1rem;
+      display: flex; gap: 0.7rem;
+    }
+    .task-input {
+      flex: 1;
+      border: 2px solid rgba(10,42,102,0.15);
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .task-input:focus { border-color: var(--blue); }
+    .check-btn {
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      padding: 0.6rem 1.2rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .check-btn:hover { background: linear-gradient(135deg, var(--teal-dark), var(--teal)); }
+
+    .task-feedback {
+      padding: 0 1.2rem 1rem;
+      font-size: 0.83rem;
+      font-weight: 600;
+      border-radius: 8px;
+      display: none;
+    }
+    .task-feedback.show { display: block; }
+    .task-feedback.ok { color: #15803d; }
+    .task-feedback.err { color: #b91c1c; }
+
+    /* ── Тренажёр ── */
+    .trainer-card {
+      background: linear-gradient(135deg, #f0f7ff 0%, #e8f4ff 100%);
+      border: 2px solid rgba(0,174,239,0.2);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .trainer-card h3 {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .trainer-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+    .trainer-display {
+      background: var(--navy-dark);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+      font-family: "Courier New", monospace;
+      font-size: 1.1rem;
+      color: var(--gold-light);
+      letter-spacing: 0.05em;
+      min-height: 52px;
+      display: flex; align-items: center;
+    }
+    .trainer-controls {
+      display: flex; gap: 0.7rem; flex-wrap: wrap; align-items: center;
+    }
+    .trainer-input {
+      border: 2px solid rgba(0,174,239,0.3);
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      font-size: 0.95rem;
+      font-family: var(--font-body);
+      min-width: 120px;
+      outline: none;
+      background: var(--white);
+      transition: border-color var(--transition);
+    }
+    .trainer-input:focus { border-color: var(--blue); }
+    .trainer-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 0.6rem 1.2rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .trainer-btn.primary {
+      background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+      color: var(--white);
+    }
+    .trainer-btn.secondary {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: var(--navy-dark);
+    }
+    .trainer-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .trainer-result {
+      margin-top: 0.8rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      display: none;
+    }
+    .trainer-result.show { display: block; }
+    .trainer-result.ok { background: rgba(34,197,94,0.1); color: #15803d; border: 1px solid #86efac; }
+    .trainer-result.err { background: rgba(239,68,68,0.1); color: #b91c1c; border: 1px solid #fca5a5; }
+    .trainer-result.info { background: rgba(0,174,239,0.1); color: #0369a1; border: 1px solid #7dd3fc; }
+
+    /* ── Счётчик прогресса ── */
+    .progress-summary {
+      background: linear-gradient(135deg, var(--navy-dark), #0d3a5c);
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .prog-item { text-align: center; }
+    .prog-item strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+    .prog-item span { font-size: 0.72rem; color: rgba(255,255,255,0.6); }
+
+    /* ── Медали ── */
+    .medals-row {
+      display: flex; gap: 0.8rem; flex-wrap: wrap;
+      padding: 1rem 0;
+    }
+    .medal-item {
+      display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+      opacity: 0.35;
+      transition: opacity var(--transition);
+    }
+    .medal-item.earned { opacity: 1; }
+    .medal-icon { font-size: 2rem; }
+    .medal-label { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); text-align: center; }
+
+    /* ── Приветственный экран ── */
+    .welcome-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      gap: 1.2rem;
+    }
+    .welcome-screen .big-icon { font-size: 5rem; }
+    .welcome-screen h2 {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: var(--navy);
+    }
+    .welcome-screen p { color: var(--text-muted); max-width: 400px; font-size: 0.9rem; }
+    .welcome-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.8rem;
+      width: 100%;
+      max-width: 560px;
+      margin-top: 0.5rem;
+    }
+    .welcome-grade-btn {
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      color: var(--white);
+      border: 2px solid rgba(212,175,55,0.4);
+      border-radius: 12px;
+      padding: 1rem;
+      cursor: pointer;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all var(--transition);
+      display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+    }
+    .welcome-grade-btn:hover {
+      background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+      border-color: var(--gold);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,168,168,0.3);
+    }
+    .welcome-grade-btn span { font-size: 1.4rem; }
+
+    /* ── Адаптив ── */
+    .sidebar-toggle {
+      display: none;
+      position: fixed;
+      bottom: 1.5rem; left: 1.5rem;
+      z-index: 300;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      color: var(--white);
+      border: 2px solid var(--gold);
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(10,42,102,0.4);
+      align-items: center; justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform var(--transition);
+      }
+      .sidebar.open { transform: translateX(0); }
+      .main-content { margin-left: 0; padding: 1.5rem; }
+      .sidebar-toggle { display: flex; }
+      .hero-stats { display: none; }
+      .hero-title { font-size: 1.4rem; }
+    }
+    @media (max-width: 600px) {
+      .main-content { padding: 1rem; }
+      .academy-hero { padding: 1.5rem; }
+    }
+
+    /* ── Toast уведомление ── */
+    .toast {
+      position: fixed;
+      top: 80px; right: 1.5rem;
+      z-index: 9999;
+      padding: 0.8rem 1.4rem;
+      border-radius: 12px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--white);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(-12px);
+      transition: all 0.4s ease;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.ok { background: linear-gradient(135deg, #16a34a, #22c55e); }
+    .toast.err { background: linear-gradient(135deg, #dc2626, #ef4444); }
+    .toast.gold { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: var(--navy-dark); }
+  </style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
+<header class="top-bar">
+  <a href="index.html" class="logo">
+    <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <circle cx="20" cy="20" r="18" stroke="#D4AF37" stroke-width="1.5"/>
+      <circle cx="20" cy="20" r="6" fill="#D4AF37"/>
+      <g stroke="#00AEEF" stroke-width="1.5" stroke-linecap="round">
+        <line x1="20" y1="2" x2="20" y2="8"/>
+        <line x1="20" y1="32" x2="20" y2="38"/>
+        <line x1="2" y1="20" x2="8" y2="20"/>
+        <line x1="32" y1="20" x2="38" y2="20"/>
+      </g>
+    </svg>
+    Адал <strong>Азамат</strong>
+  </a>
+  <div class="top-bar-title">🏆 Математическая Академия</div>
+  <div class="top-bar-right">
+    <div class="xp-badge" id="total-xp">0 XP</div>
+    <a href="index.html" class="back-link">← Главная</a>
+  </div>
+</header>
+
+<!-- SIDEBAR TOGGLE (mobile) -->
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="Открыть меню">☰</button>
+
+<div class="layout">
+
+  <!-- ════════ SIDEBAR ════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>📚 Классы и темы</h2>
+    </div>
+    <div class="ornament-line"></div>
+    <nav id="sidebar-nav"></nav>
+    <div class="sidebar-trainers">
+      <div class="sidebar-header">
+        <h2>🧪 Тренажёры 5 класс</h2>
+      </div>
+      <div class="ornament-line"></div>
+      <a href="5kl.html" class="sub-btn"><span class="sub-icon">👁️</span>Математическая зоркость</a>
+      <a href="5kl_2.html" class="sub-btn"><span class="sub-icon">🎯</span>Math Trainer</a>
+      <a href="5kl_4.html" class="sub-btn"><span class="sub-icon">♟️</span>Теория игр</a>
+      <a href="5kl_5.html" class="sub-btn"><span class="sub-icon">🤖</span>AI Math Olympiad Center</a>
+    </div>
+  </aside>
+
+  <!-- ════════ MAIN ════════ -->
+  <main class="main-content" id="main-content">
+
+    <!-- Hero -->
+    <div class="academy-hero">
+      <div class="hero-text-block">
+        <div class="hero-eyebrow">🇰🇿 Smart Education Kazakhstan · Math Olympiad</div>
+        <h1 class="hero-title">Математическая<br><span>Академия будущего</span></h1>
+        <p class="hero-sub">Олимпиадные задания и тренажёры с автоматической проверкой — 5–11 классы</p>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>7</strong><span>классов</span></div>
+        <div class="hero-stat"><strong>6</strong><span>уровней</span></div>
+        <div class="hero-stat"><strong>150+</strong><span>заданий</span></div>
+      </div>
+    </div>
+
+    <!-- Медали -->
+    <div class="content-panel" style="margin-bottom:1.5rem">
+      <div class="panel-header">
+        <h2>🎖️ Мои достижения</h2>
+        <div class="panel-meta">
+          <span class="badge-pill" id="solved-count">Решено: 0</span>
+          <span class="badge-pill" id="streak-count">Серия: 0 ✓</span>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="medals-row" id="medals-row">
+          <div class="medal-item" id="medal-bronze"><div class="medal-icon">🥉</div><div class="medal-label">Бронза<br>5 задач</div></div>
+          <div class="medal-item" id="medal-silver"><div class="medal-icon">🥈</div><div class="medal-label">Серебро<br>15 задач</div></div>
+          <div class="medal-item" id="medal-gold"><div class="medal-icon">🥇</div><div class="medal-label">Золото<br>30 задач</div></div>
+          <div class="medal-item" id="medal-champ"><div class="medal-icon">🏆</div><div class="medal-label">Чемпион<br>50 задач</div></div>
+          <div class="medal-item" id="medal-genius"><div class="medal-icon">👑</div><div class="medal-label">Гений<br>100 задач</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Контент -->
+    <div id="content-area">
+      <div class="content-panel">
+        <div class="welcome-screen">
+          <div class="big-icon">🧮</div>
+          <h2>Выберите класс в меню слева</h2>
+          <p>Откройте нужный класс и тему — задания появятся здесь. Каждая правильно решённая задача приносит XP и медали.</p>
+          <div class="welcome-grid" id="quick-grade-btns"></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  БАНК ДАННЫХ
+// ══════════════════════════════════════════════
+
+const GRADES = [
+  { g: 5, label: '5 класс', icon: '🌱' },
+  { g: 6, label: '6 класс', icon: '🌿' },
+  { g: 7, label: '7 класс', icon: '🔬' },
+  { g: 8, label: '8 класс', icon: '⚗️' },
+  { g: 9, label: '9 класс', icon: '🚀' },
+  { g: 10, label: '10 класс', icon: '🌌' },
+  { g: 11, label: '11 класс', icon: '🏆' },
+];
+
+const CURRICULUM = {
+  5: [
+    { id:'5_arith', label:'Арифметика', icon:'🔢' },
+    { id:'5_fractions', label:'Дроби', icon:'½' },
+    { id:'5_geometry', label:'Геометрия', icon:'📐' },
+    { id:'5_olymp', label:'Олимпиадные', icon:'🏅' },
+  ],
+  6: [
+    { id:'6_percent', label:'Проценты', icon:'%' },
+    { id:'6_ratio', label:'Пропорции', icon:'⚖️' },
+    { id:'6_integers', label:'Целые числа', icon:'ℤ' },
+    { id:'6_olymp', label:'Олимпиадные', icon:'🏅' },
+  ],
+  7: [
+    { id:'7_algebra', label:'Алгебра', icon:'𝑥' },
+    { id:'7_linear', label:'Линейные уравнения', icon:'📈' },
+    { id:'7_geometry', label:'Геометрия', icon:'📐' },
+    { id:'7_olymp', label:'Олимпиадные', icon:'🏅' },
+  ],
+  8: [
+    { id:'8_quadratic', label:'Квадратные уравнения', icon:'𝑥²' },
+    { id:'8_systems', label:'Системы уравнений', icon:'⊕' },
+    { id:'8_geometry', label:'Геометрия', icon:'📐' },
+    { id:'8_olymp', label:'Олимпиадные', icon:'🏅' },
+  ],
+  9: [
+    { id:'9_functions', label:'Функции', icon:'𝑓(𝑥)' },
+    { id:'9_progressions', label:'Прогрессии', icon:'∑' },
+    { id:'9_geometry', label:'Стереометрия', icon:'🔷' },
+    { id:'9_olymp', label:'Олимпиадные', icon:'🏅' },
+  ],
+  10: [
+    { id:'10_trig', label:'Тригонометрия', icon:'sin' },
+    { id:'10_combinatorics', label:'Комбинаторика', icon:'🎲' },
+    { id:'10_probability', label:'Вероятность', icon:'📊' },
+    { id:'10_olymp', label:'Олимпиадные', icon:'🏅' },
+  ],
+  11: [
+    { id:'11_derivatives', label:'Производные', icon:"𝑓'" },
+    { id:'11_integrals', label:'Интегралы', icon:'∫' },
+    { id:'11_limits', label:'Пределы', icon:'lim' },
+    { id:'11_olymp', label:'Олимпиадные', icon:'🏅' },
+  ],
+};
+
+// Задания по темам
+const EXTRA_8_CLASS_PAGES = [
+  { label:'8.1', file:'8 kl/8.1.html', icon:'📄' },
+  { label:'8.1.2', file:'8 kl/8.1.2.html', icon:'📄' },
+  { label:'8.1.8', file:'8 kl/8.1.8.html', icon:'📄' },
+  { label:'8.2.2', file:'8 kl/8.2.2.html', icon:'📄' },
+  { label:'8.2.8', file:'8 kl/8.2.8.html', icon:'📄' },
+  { label:'8.3.3', file:'8 kl/8.3.3.html', icon:'📄' },
+  { label:'8.3.8', file:'8 kl/8.3.8.html', icon:'📄' },
+  { label:'8.4.4', file:'8 kl/8.4.4.html', icon:'📄' },
+  { label:'8.4.8', file:'8 kl/8.4.8.html', icon:'📄' },
+  { label:'8.5.5', file:'8 kl/8.5.5.html', icon:'📄' },
+  { label:'8.5.8', file:'8 kl/8.5.8.html', icon:'📄' },
+  { label:'8.6', file:'8 kl/8.6.html', icon:'📄' },
+  { label:'8.6.6', file:'8 kl/8.6.6.html', icon:'📄' },
+  { label:'8.7.7', file:'8 kl/8.7.7.html', icon:'📄' },
+  { label:'8.8.8', file:'8 kl/8.8.8.html', icon:'📄' },
+  { label:'8_1', file:'8 kl/8_1.html', icon:'📄' },
+  { label:'8_2', file:'8 kl/8_2.html', icon:'📄' },
+  { label:'8_3', file:'8 kl/8_3.html', icon:'📄' },
+  { label:'8_5', file:'8 kl/8_5.html', icon:'📄' },
+];
+
+const TASKS = {
+
+  /* ── 5 КЛАСС ── */
+  '5_arith': {
+    title: 'Арифметика · 5 класс',
+    level: 'Уровень 1 — Исследователь',
+    levelIcon: '🌱',
+    xpPerTask: 10,
+    tasks: [
+      { type:'choice', diff:'easy', q:'Чему равно: 24 × 5 − 18 ÷ 6?', opts:['113','117','120','118'], ans:1 },
+      { type:'input',  diff:'easy', q:'Найдите наибольший общий делитель (НОД) чисел 36 и 48.', ans:'12' },
+      { type:'choice', diff:'med',  q:'Поезд проехал 240 км за 3 часа. Какова его средняя скорость (км/ч)?', opts:['70','80','90','100'], ans:1 },
+      { type:'input',  diff:'med',  q:'Сумма трёх последовательных натуральных чисел равна 48. Найдите наименьшее из них.', ans:'15' },
+      { type:'choice', diff:'hard', q:'В ряду чисел: 1, 4, 9, 16, 25, … Какое следующее число?', opts:['30','36','42','49'], ans:1 },
+    ],
+    trainer: { type:'arithmetic', label:'Арифметический тренажёр', desc:'Быстрые вычисления — тренируй скорость счёта!' }
+  },
+
+  '5_fractions': {
+    title: 'Дроби · 5 класс',
+    level: 'Уровень 1 — Исследователь',
+    levelIcon: '🌱',
+    xpPerTask: 10,
+    tasks: [
+      { type:'choice', diff:'easy', q:'Сколько будет: ½ + ⅓?', opts:['4/5','5/6','2/3','7/12'], ans:1 },
+      { type:'input',  diff:'easy', q:'Переведите в десятичную дробь: 3/4', ans:'0.75' },
+      { type:'choice', diff:'med',  q:'Из числа 5/6 вычли 1/4. Что получилось?', opts:['4/2','7/12','8/12','1/2'], ans:1 },
+      { type:'input',  diff:'med',  q:'Чему равно 2⅓ × 1½? Введите ответ в виде десятичной дроби (округлите до 2 знаков).', ans:'3.5' },
+      { type:'choice', diff:'hard', q:'Какое наименьшее общее кратное (НОК) у 4, 6 и 10?', opts:['20','30','60','120'], ans:1 },
+    ],
+    trainer: { type:'fractions', label:'Тренажёр дробей', desc:'Сложение и вычитание дробей с разными знаменателями.' }
+  },
+
+  '5_geometry': {
+    title: 'Геометрия · 5 класс',
+    level: 'Уровень 1 — Исследователь',
+    levelIcon: '🌱',
+    xpPerTask: 10,
+    tasks: [
+      { type:'choice', diff:'easy', q:'Периметр прямоугольника 7×4 см. Чему он равен?', opts:['22 см','28 см','24 см','11 см'], ans:0 },
+      { type:'input',  diff:'easy', q:'Площадь квадрата со стороной 9 см (в кв.см):', ans:'81' },
+      { type:'choice', diff:'med',  q:'Сумма углов треугольника равна:', opts:['90°','180°','270°','360°'], ans:1 },
+      { type:'input',  diff:'med',  q:'Прямоугольник имеет площадь 56 кв.см, одна сторона 7 см. Найдите другую сторону (см).', ans:'8' },
+      { type:'choice', diff:'hard', q:'Площадь круга с радиусом 3 см (π ≈ 3.14), приблизительно:', opts:['18.84','28.26','9.42','37.68'], ans:1 },
+    ],
+    trainer: { type:'geometry5', label:'Геометрический тренажёр', desc:'Вычисляй площади и периметры фигур.' }
+  },
+
+  '5_olymp': {
+    title: 'Олимпиадные задачи · 5 класс',
+    level: 'Уровень 3 — Олимпиадник',
+    levelIcon: '🏅',
+    xpPerTask: 30,
+    tasks: [
+      { type:'input',  diff:'olymp', q:'Магический квадрат 3×3 заполнен числами 1–9. Сумма в каждой строке, столбце и диагонали одинакова. Чему равна эта сумма?', ans:'15' },
+      { type:'choice', diff:'olymp', q:'Крестьянин несёт волка, козу и капусту через реку (лодка на 2). Как перевезти, чтобы никто никого не съел? Минимальное количество переправ:', opts:['5','7','9','11'], ans:1 },
+      { type:'input',  diff:'olymp', q:'Сколько двузначных чисел делится и на 3, и на 5?', ans:'6' },
+      { type:'choice', diff:'olymp', q:'Найдите сумму первых 10 натуральных чисел: 1+2+3+…+10:', opts:['45','50','55','60'], ans:2 },
+      { type:'input',  diff:'olymp', q:'У Аиды в 3 раза больше монет, чем у Бекзата. Вместе у них 48. Сколько у Аиды?', ans:'36' },
+    ],
+    trainer: { type:'logic5', label:'Логический тренажёр', desc:'Олимпиадные логические задачки для 5 класса.' }
+  },
+
+  /* ── 6 КЛАСС ── */
+  '6_percent': {
+    title: 'Проценты · 6 класс',
+    level: 'Уровень 1 — Исследователь',
+    levelIcon: '🌿',
+    xpPerTask: 15,
+    tasks: [
+      { type:'input',  diff:'easy', q:'Сколько процентов составляет 45 от 180?', ans:'25' },
+      { type:'choice', diff:'easy', q:'Скидка 20% с цены 5000 тенге. Новая цена:', opts:['4000 ₸','3500 ₸','4500 ₸','3000 ₸'], ans:0 },
+      { type:'input',  diff:'med',  q:'Цена выросла на 15% и стала 9200 тенге. Какова была начальная цена (в тенге)?', ans:'8000' },
+      { type:'choice', diff:'med',  q:'В классе 30 учеников, 60% — девочки. Сколько мальчиков?', opts:['10','12','14','18'], ans:1 },
+      { type:'input',  diff:'hard', q:'Банк начислил 12% годовых на вклад 50 000 ₸. Сколько денег стало через год?', ans:'56000' },
+    ],
+    trainer: { type:'percent', label:'Тренажёр процентов', desc:'Финансовая математика: скидки, надбавки, вклады.' }
+  },
+
+  '6_ratio': {
+    title: 'Пропорции · 6 класс',
+    level: 'Уровень 2 — Аналитик',
+    levelIcon: '🌿',
+    xpPerTask: 15,
+    tasks: [
+      { type:'input',  diff:'easy', q:'Найдите x: 3/x = 6/10', ans:'5' },
+      { type:'choice', diff:'easy', q:'Скорости двух машин относятся как 3:4. Быстрая едет 120 км/ч. Медленная:', opts:['80','90','100','85'], ans:1 },
+      { type:'input',  diff:'med',  q:'Разделите 270 в отношении 4:5. Найдите большую часть.', ans:'150' },
+      { type:'choice', diff:'med',  q:'Прямая пропорциональность: если x=4, y=20. Чему равно y при x=7?', opts:['28','35','42','56'], ans:1 },
+      { type:'input',  diff:'hard', q:'3 рабочих выполнят заказ за 8 дней. За сколько дней выполнят 6 рабочих?', ans:'4' },
+    ],
+    trainer: { type:'ratio', label:'Тренажёр пропорций', desc:'Прямая и обратная пропорциональность.' }
+  },
+
+  '6_integers': {
+    title: 'Целые числа · 6 класс',
+    level: 'Уровень 1 — Исследователь',
+    levelIcon: '🌿',
+    xpPerTask: 12,
+    tasks: [
+      { type:'choice', diff:'easy', q:'Чему равно: (−7) + (−3)?', opts:['-10','-4','10','4'], ans:0 },
+      { type:'input',  diff:'easy', q:'Вычислите: (−5) × (−8)', ans:'40' },
+      { type:'choice', diff:'med',  q:'Упростите: −(−12) − 5 + (−3):', opts:['4','-4','14','20'], ans:0 },
+      { type:'input',  diff:'med',  q:'Температура опустилась с +4°C до −11°C. На сколько градусов?', ans:'15' },
+      { type:'choice', diff:'hard', q:'Среди чисел −3, 0, 2, −5, 1 найдите сумму отрицательных:', opts:['-8','-3','-5','8'], ans:0 },
+    ],
+    trainer: { type:'integers', label:'Тренажёр целых чисел', desc:'Действия с отрицательными числами.' }
+  },
+
+  '6_olymp': {
+    title: 'Олимпиадные задачи · 6 класс',
+    level: 'Уровень 3 — Олимпиадник',
+    levelIcon: '🏅',
+    xpPerTask: 35,
+    tasks: [
+      { type:'input',  diff:'olymp', q:'Найдите все делители числа 60. Сколько их?', ans:'12' },
+      { type:'choice', diff:'olymp', q:'Задача о лягушке: лягушка сидит на дне ямы 10 м. Днём поднимается на 3 м, ночью скатывается на 2 м. На какой день выберется?', opts:['7','8','9','10'], ans:1 },
+      { type:'input',  diff:'olymp', q:'Сумма двух простых чисел равна 100. Одно из них 47. Найдите второе.', ans:'53' },
+      { type:'choice', diff:'olymp', q:'Сколько нулей в конце числа 20! (факториал)?', opts:['2','3','4','5'], ans:2 },
+      { type:'input',  diff:'olymp', q:'Число кратно 2, 3 и 5. Наименьшее трёхзначное такое число:', ans:'120' },
+    ],
+    trainer: { type:'logic6', label:'Логические задачи', desc:'Олимпиадные задачи для 6 класса.' }
+  },
+
+  /* ── 7 КЛАСС ── */
+  '7_algebra': {
+    title: 'Алгебра · 7 класс',
+    level: 'Уровень 2 — Аналитик',
+    levelIcon: '🔬',
+    xpPerTask: 20,
+    tasks: [
+      { type:'input',  diff:'easy', q:'Раскройте скобки: 3(x − 4) = ? при x = 7', ans:'9' },
+      { type:'choice', diff:'easy', q:'Упростите: 5a + 3b − 2a + b:', opts:['3a+4b','7a+4b','3a+2b','7a+2b'], ans:0 },
+      { type:'input',  diff:'med',  q:'Решите уравнение: 4x − 7 = 13. Найдите x.', ans:'5' },
+      { type:'choice', diff:'med',  q:'Степень произведения: (a²b)³ =', opts:['a⁵b³','a⁶b³','a⁶b⁴','a⁵b⁴'], ans:1 },
+      { type:'input',  diff:'hard', q:'Разложите на множители: x² − 9. Что такое a в (x−a)(x+a)?', ans:'3' },
+    ],
+    trainer: { type:'algebra7', label:'Алгебраический тренажёр', desc:'Упрощение выражений и разложение на множители.' }
+  },
+
+  '7_linear': {
+    title: 'Линейные уравнения · 7 класс',
+    level: 'Уровень 2 — Аналитик',
+    levelIcon: '🔬',
+    xpPerTask: 20,
+    tasks: [
+      { type:'input',  diff:'easy', q:'Решите: 2x + 5 = 15. Найдите x.', ans:'5' },
+      { type:'choice', diff:'easy', q:'Уравнение 3x − 6 = 0 имеет решение:', opts:['x=0','x=1','x=2','x=3'], ans:2 },
+      { type:'input',  diff:'med',  q:'Возраст отца в 3 раза больше сына. Сумма возрастов 52. Найдите возраст сына.', ans:'13' },
+      { type:'choice', diff:'med',  q:'Какое уравнение не имеет решения?', opts:['2x=4','x+1=1','0x=5','3x=0'], ans:2 },
+      { type:'input',  diff:'hard', q:'Автобус едет 60 км/ч, машина 90 км/ч. Автобус выехал на 1 час раньше. Через сколько часов машина догонит автобус (считая от момента выезда машины)?', ans:'2' },
+    ],
+    trainer: { type:'equations7', label:'Тренажёр уравнений', desc:'Составление и решение линейных уравнений.' }
+  },
+
+  '7_geometry': {
+    title: 'Геометрия · 7 класс',
+    level: 'Уровень 2 — Аналитик',
+    levelIcon: '🔬',
+    xpPerTask: 20,
+    tasks: [
+      { type:'choice', diff:'easy', q:'Два угла треугольника 55° и 70°. Третий угол:', opts:['45°','55°','65°','75°'], ans:1 },
+      { type:'input',  diff:'easy', q:'Катеты прямоугольного треугольника 3 и 4. Найдите гипотенузу.', ans:'5' },
+      { type:'choice', diff:'med',  q:'Какие треугольники называются подобными?', opts:['Равные стороны','Равные углы','Одинаковые периметры','Одинаковые площади'], ans:1 },
+      { type:'input',  diff:'med',  q:'Медиана, биссектриса и высота из одной вершины в равностороннем треугольнике. Сколько это отрезков?', ans:'1' },
+      { type:'choice', diff:'hard', q:'В равнобедренном треугольнике основание 10 см, боковая сторона 13 см. Высота, проведённая к основанию:', opts:['10','12','13','11'], ans:1 },
+    ],
+    trainer: { type:'geometry7', label:'Геометрический тренажёр', desc:'Теорема Пифагора и свойства треугольников.' }
+  },
+
+  '7_olymp': {
+    title: 'Олимпиадные задачи · 7 класс',
+    level: 'Уровень 3 — Олимпиадник',
+    levelIcon: '🏅',
+    xpPerTask: 40,
+    tasks: [
+      { type:'input',  diff:'olymp', q:'Произведение двух простых чисел равно 77. Найдите их сумму.', ans:'18' },
+      { type:'choice', diff:'olymp', q:'В турнире 8 команд, каждая играет с каждой по 1 разу. Сколько всего игр?', opts:['28','32','36','56'], ans:0 },
+      { type:'input',  diff:'olymp', q:'Сумма пяти последовательных нечётных чисел равна 65. Найдите наибольшее.', ans:'17' },
+      { type:'choice', diff:'olymp', q:'Шахматная задача: конь стоит в углу доски. Сколько клеток он может атаковать?', opts:['1','2','3','4'], ans:1 },
+      { type:'input',  diff:'olymp', q:'Найдите цифру единиц числа 7^2025.', ans:'7' },
+    ],
+    trainer: { type:'logic7', label:'Олимпиадные задачи', desc:'Нестандартные задачи 7 класса.' }
+  },
+
+  /* ── 8 КЛАСС ── */
+  '8_quadratic': {
+    title: 'Квадратные уравнения · 8 класс',
+    level: 'Уровень 3 — Олимпиадник',
+    levelIcon: '⚗️',
+    xpPerTask: 25,
+    tasks: [
+      { type:'input',  diff:'easy', q:'Решите: x² = 49. Найдите положительный корень.', ans:'7' },
+      { type:'choice', diff:'easy', q:'Дискриминант уравнения 2x²−5x+3=0:', opts:['1','13','25','16'], ans:0 },
+      { type:'input',  diff:'med',  q:'Решите x² − 5x + 6 = 0. Найдите бо́льший корень.', ans:'3' },
+      { type:'choice', diff:'med',  q:'По формуле Виета: сумма корней x² − 7x + 10 = 0:', opts:['3','5','7','10'], ans:2 },
+      { type:'input',  diff:'hard', q:'Произведение двух последовательных натуральных чисел равно 56. Найдите меньшее.', ans:'7' },
+    ],
+    trainer: { type:'quadratic', label:'Тренажёр квадратных уравнений', desc:'Дискриминант, формула Виета, корни.' }
+  },
+
+  '8_systems': {
+    title: 'Системы уравнений · 8 класс',
+    level: 'Уровень 3 — Олимпиадник',
+    levelIcon: '⚗️',
+    xpPerTask: 25,
+    tasks: [
+      { type:'input',  diff:'easy', q:'Система: x+y=10, x−y=4. Найдите x.', ans:'7' },
+      { type:'choice', diff:'med',  q:'Система: 2x+y=8, x+2y=7. Решение (x;y):', opts:['(3;2)','(2;3)','(4;0)','(1;6)'], ans:0 },
+      { type:'input',  diff:'med',  q:'Два числа в сумме дают 25, а произведение равно 156. Найдите большее число.', ans:'13' },
+      { type:'choice', diff:'hard', q:'Система: x+y+z=6, x+2y=8, z=1. Чему равно y?', opts:['2','3','4','1'], ans:1 },
+      { type:'input',  diff:'hard', q:'Скорость лодки по течению 18 км/ч, против — 10 км/ч. Скорость течения (км/ч):', ans:'4' },
+    ],
+    trainer: { type:'systems', label:'Тренажёр систем', desc:'Метод подстановки и сложения.' }
+  },
+
+  '8_geometry': {
+    title: 'Геометрия · 8 класс',
+    level: 'Уровень 3 — Олимпиадник',
+    levelIcon: '⚗️',
+    xpPerTask: 25,
+    tasks: [
+      { type:'input',  diff:'easy', q:'Площадь параллелограмма с основанием 12 и высотой 7:', ans:'84' },
+      { type:'choice', diff:'med',  q:'Диагонали ромба 6 и 8 см. Площадь ромба:', opts:['24','48','12','36'], ans:0 },
+      { type:'input',  diff:'med',  q:'В прямоугольной трапеции основания 5 и 9 см, высота 4 см. Площадь:', ans:'28' },
+      { type:'choice', diff:'hard', q:'Вписанный угол опирается на дугу 120°. Чему равен вписанный угол?', opts:['60°','120°','240°','30°'], ans:0 },
+      { type:'input',  diff:'hard', q:'Радиус описанной окружности прямоугольного треугольника с катетами 6 и 8:', ans:'5' },
+    ],
+    trainer: { type:'geometry8', label:'Тренажёр по геометрии', desc:'Площади фигур, окружности, трапеции.' }
+  },
+
+  '8_olymp': {
+    title: 'Олимпиадные задачи · 8 класс',
+    level: 'Уровень 4 — Математический эксперт',
+    levelIcon: '🏅',
+    xpPerTask: 50,
+    tasks: [
+      { type:'input',  diff:'olymp', q:'Сумма квадратов двух чисел 85, их произведение 18. Найдите сумму этих чисел.', ans:'11' },
+      { type:'choice', diff:'olymp', q:'Сколько трёхзначных чисел делится на 7?', opts:['126','127','128','129'], ans:2 },
+      { type:'input',  diff:'olymp', q:'Докажите: если a>0, b>0, то (a+b)/2 ≥ √(ab). При a=9, b=16 найдите √(ab).', ans:'12' },
+      { type:'choice', diff:'olymp', q:'Прямая y=2x+b проходит через (3;8). Найдите b:', opts:['2','1','3','0'], ans:0 },
+      { type:'input',  diff:'olymp', q:'Периметр прямоугольника 50 см, одна сторона 8 см. Площадь прямоугольника:', ans:'136' },
+    ],
+    trainer: { type:'logic8', label:'Нестандартные задачи', desc:'Олимпиадный уровень для 8 класса.' }
+  },
+
+  /* ── 9 КЛАСС ── */
+  '9_functions': {
+    title: 'Функции · 9 класс',
+    level: 'Уровень 4 — Математический эксперт',
+    levelIcon: '🚀',
+    xpPerTask: 30,
+    tasks: [
+      { type:'choice', diff:'easy', q:'Область определения f(x) = 1/x:', opts:['x≠0','x>0','x≥0','все вещ.'], ans:0 },
+      { type:'input',  diff:'easy', q:'f(x) = 3x − 1. Найдите f(4).', ans:'11' },
+      { type:'choice', diff:'med',  q:'Функция y = x² является:', opts:['Линейной','Квадратичной','Показательной','Логарифмической'], ans:1 },
+      { type:'input',  diff:'med',  q:'Найдите нули функции y = x² − 4x + 3. Сумма нулей:', ans:'4' },
+      { type:'choice', diff:'hard', q:'При каком x функция y = −2x² + 8x − 5 имеет максимум?', opts:['x=1','x=2','x=3','x=4'], ans:1 },
+    ],
+    trainer: { type:'functions9', label:'Тренажёр функций', desc:'Область определения, значения, графики.' }
+  },
+
+  '9_progressions': {
+    title: 'Прогрессии · 9 класс',
+    level: 'Уровень 4 — Математический эксперт',
+    levelIcon: '🚀',
+    xpPerTask: 30,
+    tasks: [
+      { type:'input',  diff:'easy', q:'Арифметическая прогрессия: a₁=2, d=3. Найдите a₅.', ans:'14' },
+      { type:'choice', diff:'easy', q:'Сумма первых 5 членов АП: 3, 7, 11, 15, 19…', opts:['55','50','45','60'], ans:0 },
+      { type:'input',  diff:'med',  q:'Геометрическая прогрессия: b₁=2, q=3. Найдите b₄.', ans:'54' },
+      { type:'choice', diff:'med',  q:'Сумма бесконечной убывающей ГП b₁=12, q=0.5:', opts:['24','12','6','48'], ans:0 },
+      { type:'input',  diff:'hard', q:'Число 6 является средним пропорциональным между 4 и x. Найдите x.', ans:'9' },
+    ],
+    trainer: { type:'progressions', label:'Тренажёр прогрессий', desc:'Арифметические и геометрические прогрессии.' }
+  },
+
+  '9_geometry': {
+    title: 'Стереометрия · 9 класс',
+    level: 'Уровень 4 — Математический эксперт',
+    levelIcon: '🚀',
+    xpPerTask: 30,
+    tasks: [
+      { type:'input',  diff:'easy', q:'Объём куба с ребром 5 см (в куб.см):', ans:'125' },
+      { type:'choice', diff:'easy', q:'Площадь поверхности прямоугольного параллелепипеда 2×3×4:', opts:['52','48','50','56'], ans:0 },
+      { type:'input',  diff:'med',  q:'Объём цилиндра: R=3 см, h=7 см. V = πr²h ≈ 197.92 (π≈3.14). Введите целую часть.', ans:'197' },
+      { type:'choice', diff:'hard', q:'У правильной пирамиды с квадратным основанием 6×6 и высотой 4 найдите объём:', opts:['48','72','36','96'], ans:0 },
+      { type:'input',  diff:'hard', q:'Диаметр шара 10 см. Объём V = (4/3)πr³ ≈ (π≈3.14). Введите целую часть.', ans:'523' },
+    ],
+    trainer: { type:'stereo', label:'Тренажёр стереометрии', desc:'Объёмы и поверхности тел.' }
+  },
+
+  '9_olymp': {
+    title: 'Олимпиадные задачи · 9 класс',
+    level: 'Уровень 5 — Гений Казахстана',
+    levelIcon: '🏅',
+    xpPerTask: 60,
+    tasks: [
+      { type:'input',  diff:'olymp', q:'Найдите сумму всех натуральных делителей числа 120.', ans:'360' },
+      { type:'choice', diff:'olymp', q:'Сколько способов выбрать 3 человека из 7?', opts:['21','35','42','56'], ans:1 },
+      { type:'input',  diff:'olymp', q:'Вычислите: log₂(8) + log₂(4)', ans:'5' },
+      { type:'choice', diff:'olymp', q:'Уравнение x⁴ − 5x² + 4 = 0. Количество корней:', opts:['2','4','0','1'], ans:1 },
+      { type:'input',  diff:'olymp', q:'Площадь треугольника с вершинами (0,0), (6,0), (0,8):', ans:'24' },
+    ],
+    trainer: { type:'logic9', label:'Олимпиадный тренажёр', desc:'Задачи республиканского уровня.' }
+  },
+
+  /* ── 10 КЛАСС ── */
+  '10_trig': {
+    title: 'Тригонометрия · 10 класс',
+    level: 'Уровень 5 — Гений Казахстана',
+    levelIcon: '🌌',
+    xpPerTask: 35,
+    tasks: [
+      { type:'input',  diff:'easy', q:'Вычислите sin²30° + cos²30°:', ans:'1' },
+      { type:'choice', diff:'easy', q:'sin(90°) =', opts:['0','0.5','1','√2/2'], ans:2 },
+      { type:'input',  diff:'med',  q:'Решите уравнение sin(x) = 1 на [0°;360°]. Ответ в градусах:', ans:'90' },
+      { type:'choice', diff:'med',  q:'tg(45°) =', opts:['0','1','√3','0.5'], ans:1 },
+      { type:'input',  diff:'hard', q:'Упростите: sin²x + cos²x − 1. Ответ:', ans:'0' },
+    ],
+    trainer: { type:'trig', label:'Тригонометрический тренажёр', desc:'sin, cos, tg и основные тождества.' }
+  },
+
+  '10_combinatorics': {
+    title: 'Комбинаторика · 10 класс',
+    level: 'Уровень 5 — Гений Казахстана',
+    levelIcon: '🌌',
+    xpPerTask: 35,
+    tasks: [
+      { type:'input',  diff:'easy', q:'Сколько перестановок из 4 элементов? 4! =', ans:'24' },
+      { type:'choice', diff:'easy', q:'C(5,2) — сочетания из 5 по 2:', opts:['5','10','15','20'], ans:1 },
+      { type:'input',  diff:'med',  q:'Из 6 книг нужно выбрать 2. Сколько способов? (C₆²)', ans:'15' },
+      { type:'choice', diff:'med',  q:'A(5,3) — размещения из 5 по 3:', opts:['10','20','60','120'], ans:2 },
+      { type:'input',  diff:'hard', q:'Сколько способов расставить 7 человек по 7 местам?', ans:'5040' },
+    ],
+    trainer: { type:'comb', label:'Тренажёр комбинаторики', desc:'Перестановки, размещения, сочетания.' }
+  },
+
+  '10_probability': {
+    title: 'Теория вероятностей · 10 класс',
+    level: 'Уровень 5 — Гений Казахстана',
+    levelIcon: '🌌',
+    xpPerTask: 35,
+    tasks: [
+      { type:'input',  diff:'easy', q:'Подбрасывают монету. Вероятность орла: P = ? (введите десятичную дробь)', ans:'0.5' },
+      { type:'choice', diff:'easy', q:'В урне 3 красных и 7 синих шаров. Вероятность вытащить красный:', opts:['0.3','0.7','0.5','0.4'], ans:0 },
+      { type:'input',  diff:'med',  q:'Две монеты. Вероятность обоих орлов: P =', ans:'0.25' },
+      { type:'choice', diff:'med',  q:'P(A)=0.4, P(B)=0.5, несовместные. P(A+B):', opts:['0.2','0.9','0.45','0.8'], ans:1 },
+      { type:'input',  diff:'hard', q:'Стреляют 3 раза, вероятность попадания 0.8. Вероятность 3 попаданий (до 3 знаков):', ans:'0.512' },
+    ],
+    trainer: { type:'probability', label:'Тренажёр вероятностей', desc:'Классическая вероятность и формулы.' }
+  },
+
+  '10_olymp': {
+    title: 'Олимпиадные задачи · 10 класс',
+    level: 'Уровень 6 — AI Math Master',
+    levelIcon: '🏅',
+    xpPerTask: 70,
+    tasks: [
+      { type:'input',  diff:'olymp', q:'Докажите: в 23 натуральных числах хотя бы 2 дадут одинаковый остаток при делении на 22. Сколько минимум нужно чисел? (принцип Дирихле)', ans:'23' },
+      { type:'choice', diff:'olymp', q:'Биномиальный коэффициент C(10,3):', opts:['60','100','120','210'], ans:2 },
+      { type:'input',  diff:'olymp', q:'Найдите сумму: 1/(1×2) + 1/(2×3) + … + 1/(9×10)', ans:'0.9' },
+      { type:'choice', diff:'olymp', q:'Решение неравенства x² − 4 < 0:', opts:['x<2','|x|<2','x>2','x≠2'], ans:1 },
+      { type:'input',  diff:'olymp', q:'Длина наибольшей диагонали правильного шестиугольника со стороной 3:', ans:'6' },
+    ],
+    trainer: { type:'logic10', label:'Международный уровень', desc:'Задачи международных олимпиад.' }
+  },
+
+  /* ── 11 КЛАСС ── */
+  '11_derivatives': {
+    title: 'Производные · 11 класс',
+    level: 'Уровень 6 — AI Math Master',
+    levelIcon: '🏆',
+    xpPerTask: 40,
+    tasks: [
+      { type:'choice', diff:'easy', q:"(x³)' =", opts:['x²','2x²','3x²','3x'], ans:2 },
+      { type:'input',  diff:'easy', q:"Найдите f'(2), если f(x) = 3x² − 5x + 1.", ans:'7' },
+      { type:'choice', diff:'med',  q:'В точке x₀ функция имеет экстремум, если f\'(x₀) =', opts:['1','0','-1','∞'], ans:1 },
+      { type:'input',  diff:'med',  q:'f(x) = x³ − 3x. Найдите сумму значений x в точках экстремума.', ans:'0' },
+      { type:'choice', diff:'hard', q:"f(x) = sin(2x). f'(x) =", opts:['cos(2x)','2cos(2x)','-2cos(2x)','-cos(2x)'], ans:1 },
+    ],
+    trainer: { type:'derivatives', label:'Тренажёр производных', desc:'Правила дифференцирования и экстремумы.' }
+  },
+
+  '11_integrals': {
+    title: 'Интегралы · 11 класс',
+    level: 'Уровень 6 — AI Math Master',
+    levelIcon: '🏆',
+    xpPerTask: 40,
+    tasks: [
+      { type:'choice', diff:'easy', q:'∫x dx =', opts:['x + C','x²/2 + C','x² + C','2x + C'], ans:1 },
+      { type:'input',  diff:'med',  q:'Вычислите: ∫₀² x dx. Введите ответ.', ans:'2' },
+      { type:'choice', diff:'med',  q:'∫cos(x) dx =', opts:['sin(x)+C','-sin(x)+C','cos(x)+C','-cos(x)+C'], ans:0 },
+      { type:'input',  diff:'hard', q:'Площадь под y=x² на [0;3] = ∫₀³ x² dx =', ans:'9' },
+      { type:'choice', diff:'hard', q:'∫₀¹ 3x² dx =', opts:['1','2','3','0'], ans:0 },
+    ],
+    trainer: { type:'integrals', label:'Тренажёр интегралов', desc:'Неопределённые и определённые интегралы.' }
+  },
+
+  '11_limits': {
+    title: 'Пределы · 11 класс',
+    level: 'Уровень 6 — AI Math Master',
+    levelIcon: '🏆',
+    xpPerTask: 40,
+    tasks: [
+      { type:'input',  diff:'easy', q:'lim(x→2) [x + 3] =', ans:'5' },
+      { type:'choice', diff:'easy', q:'lim(x→∞) 1/x =', opts:['1','0','∞','-1'], ans:1 },
+      { type:'input',  diff:'med',  q:'lim(x→0) sin(x)/x =', ans:'1' },
+      { type:'choice', diff:'med',  q:'lim(x→3) (x²−9)/(x−3) =', opts:['0','3','6','9'], ans:2 },
+      { type:'input',  diff:'hard', q:'lim(x→∞) (3x²+1)/(x²−2). Введите ответ.', ans:'3' },
+    ],
+    trainer: { type:'limits', label:'Тренажёр пределов', desc:'Вычисление пределов и раскрытие неопределённостей.' }
+  },
+
+  '11_olymp': {
+    title: 'Олимпиадные задачи · 11 класс',
+    level: 'Уровень 6 — AI Math Master',
+    levelIcon: '🏅',
+    xpPerTask: 80,
+    tasks: [
+      { type:'input',  diff:'olymp', q:'Найдите сумму 1 + 1/2 + 1/4 + 1/8 + … (бесконечная ГП, q=0.5).', ans:'2' },
+      { type:'choice', diff:'olymp', q:'Уравнение e^x = x не имеет решений. Для какого основания a уравнение aˣ = x касательное?', opts:['a=e','a=1/e','a=√e','a=e²'], ans:0 },
+      { type:'input',  diff:'olymp', q:'Площадь между y=x² и y=4 (от -2 до 2):', ans:'10.67' },
+      { type:'choice', diff:'olymp', q:'Число e ≈ 2.718… называется:', opts:['Числом Пи','Числом Эйлера','Золотым сечением','Числом Фибоначчи'], ans:1 },
+      { type:'input',  diff:'olymp', q:'Если f(x)=x²·eˣ, найдите f\'(0).', ans:'0' },
+    ],
+    trainer: { type:'logic11', label:'Международный финал', desc:'Задачи уровня ЕНТ и международных олимпиад.' }
+  },
+};
+
+// ══════════════════════════════════════════════
+//  СОСТОЯНИЕ
+// ══════════════════════════════════════════════
+const STATE = {
+  xp: parseInt(localStorage.getItem('ma_xp') || '0'),
+  solved: parseInt(localStorage.getItem('ma_solved') || '0'),
+  streak: 0,
+  answers: JSON.parse(localStorage.getItem('ma_answers') || '{}'),
+  currentTopic: null,
+};
+
+function saveState() {
+  localStorage.setItem('ma_xp', STATE.xp);
+  localStorage.setItem('ma_solved', STATE.solved);
+  localStorage.setItem('ma_answers', JSON.stringify(STATE.answers));
+}
+
+// ══════════════════════════════════════════════
+//  SIDEBAR
+// ══════════════════════════════════════════════
+function buildSidebar() {
+  const nav = document.getElementById('sidebar-nav');
+  nav.innerHTML = '';
+  GRADES.forEach(({ g, label, icon }) => {
+    const group = document.createElement('div');
+    group.className = 'grade-group';
+
+    const toggle = document.createElement('button');
+    toggle.className = 'grade-toggle';
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.innerHTML = `
+      <span class="grade-num">${g}</span>
+      <span class="grade-label">${icon} ${label}</span>
+      <span class="grade-arrow">▼</span>
+    `;
+
+    const submenu = document.createElement('div');
+    submenu.className = 'grade-submenu';
+    (CURRICULUM[g] || []).forEach(topic => {
+      const btn = document.createElement('button');
+      btn.className = 'sub-btn';
+      btn.dataset.topic = topic.id;
+      btn.innerHTML = `<span class="sub-icon">${topic.icon}</span>${topic.label}`;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active-sub'));
+        btn.classList.add('active-sub');
+        loadTopic(topic.id);
+        // закрыть сайдбар на мобиле
+        if (window.innerWidth < 900) {
+          document.getElementById('sidebar').classList.remove('open');
+        }
+      });
+      submenu.appendChild(btn);
+
+      if (g === 8 && topic.id === '8_olymp') {
+        const toggle = document.createElement('button');
+        toggle.className = 'sub-btn sub-toggle';
+        toggle.type = 'button';
+        toggle.innerHTML = `<span class="sub-icon">🏅</span><span>Олимпиадные варианты</span><span class="sub-arrow">▼</span>`;
+
+        const nested = document.createElement('div');
+        nested.className = 'sub-submenu';
+        const nestedTitle = document.createElement('div');
+        nestedTitle.className = 'sub-subtitle';
+        nestedTitle.textContent = 'Файлы из папки 8 kl';
+        nested.appendChild(nestedTitle);
+
+        EXTRA_8_CLASS_PAGES.forEach(page => {
+          const link = document.createElement('a');
+          link.className = 'sub-btn sub-btn-child';
+          link.href = page.file;
+          link.innerHTML = `<span class="sub-icon">${page.icon}</span>${page.label}`;
+          link.addEventListener('click', () => {
+            document.querySelectorAll('.sub-btn').forEach(item => item.classList.remove('active-sub'));
+            link.classList.add('active-sub');
+            if (window.innerWidth < 900) {
+              document.getElementById('sidebar').classList.remove('open');
+            }
+          });
+          nested.appendChild(link);
+        });
+
+        toggle.addEventListener('click', () => {
+          const isOpen = nested.classList.toggle('open');
+          toggle.classList.toggle('active', isOpen);
+        });
+
+        submenu.appendChild(toggle);
+        submenu.appendChild(nested);
+      }
+    });
+
+    toggle.addEventListener('click', () => {
+      const isOpen = submenu.classList.toggle('open');
+      toggle.classList.toggle('active', isOpen);
+      toggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    group.appendChild(toggle);
+    group.appendChild(submenu);
+    nav.appendChild(group);
+  });
+}
+
+// Быстрые кнопки на главном экране
+function buildQuickBtns() {
+  const wrap = document.getElementById('quick-grade-btns');
+  if (!wrap) return;
+  GRADES.forEach(({ g, label, icon }) => {
+    const btn = document.createElement('button');
+    btn.className = 'welcome-grade-btn';
+    btn.innerHTML = `<span>${icon}</span>${label}`;
+    btn.addEventListener('click', () => {
+      // открыть первую тему класса
+      const firstTopic = CURRICULUM[g][0];
+      loadTopic(firstTopic.id);
+      // раскрыть сайдбар
+      const allGroups = document.querySelectorAll('.grade-toggle');
+      allGroups.forEach((t, i) => {
+        if (i === g - 5) {
+          const sub = t.nextElementSibling;
+          sub.classList.add('open');
+          t.classList.add('active');
+          const firstBtn = sub.querySelector(`[data-topic="${firstTopic.id}"]`);
+          if (firstBtn) firstBtn.classList.add('active-sub');
+        }
+      });
+    });
+    wrap.appendChild(btn);
+  });
+}
+
+// ══════════════════════════════════════════════
+//  ЗАГРУЗКА ТЕМЫ
+// ══════════════════════════════════════════════
+function loadTopic(topicId) {
+  const data = TASKS[topicId];
+  if (!data) return;
+  STATE.currentTopic = topicId;
+
+  const diffLabel = { easy:'Лёгкий', med:'Средний', hard:'Сложный', olymp:'Олимпиадный' };
+  const diffMap = { easy:'diff-easy', med:'diff-med', hard:'diff-hard', olymp:'diff-olymp' };
+
+  // Счётчик прогресса по теме
+  const topicSolved = data.tasks.filter((_,i) => STATE.answers[`${topicId}_${i}`] === true).length;
+  const topicXP = topicSolved * data.xpPerTask;
+
+  let html = `
+    <div class="level-bar">
+      <div class="level-icon">${data.levelIcon}</div>
+      <div>
+        <h3>${data.level}</h3>
+        <p>${data.title}</p>
+      </div>
+      <div class="level-progress-wrap">
+        <div class="level-progress-label">
+          <span>Прогресс</span>
+          <span>${topicSolved}/${data.tasks.length}</span>
+        </div>
+        <div class="level-bar-track">
+          <div class="level-bar-fill" style="width:${(topicSolved/data.tasks.length)*100}%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-panel" style="margin-bottom:1.5rem">
+      <div class="panel-header">
+        <h2>${data.levelIcon} ${data.title}</h2>
+        <div class="panel-meta">
+          <span class="badge-pill">+${data.xpPerTask} XP / задача</span>
+          <span class="badge-pill">${data.tasks.length} заданий</span>
+        </div>
+      </div>
+      <div class="panel-body">
+  `;
+
+  // Вкладки тем (по типу сложности)
+  html += `<div class="tasks-list">`;
+
+  data.tasks.forEach((task, i) => {
+    const answered = STATE.answers[`${topicId}_${i}`];
+    const cardClass = answered === true ? 'task-card correct' : answered === false ? 'task-card wrong' : 'task-card';
+
+    html += `<div class="${cardClass}" id="task-${topicId}-${i}">
+      <div class="task-head">
+        <div class="task-num">${i+1}</div>
+        <strong style="font-size:0.85rem;color:var(--text)">${task.q.length > 60 ? 'Задание' : ''}</strong>
+        <span class="task-difficulty ${diffMap[task.diff]}">${diffLabel[task.diff]}</span>
+      </div>
+      <div class="task-q">${renderFormula(task.q)}</div>
+    `;
+
+    if (task.type === 'choice') {
+      html += `<div class="task-options">`;
+      const letters = ['А','Б','В','Г'];
+      task.opts.forEach((opt, j) => {
+        let cls = 'option-btn';
+        if (answered !== undefined) {
+          if (j === task.ans) cls += ' correct-ans';
+          else if (answered === false) cls += '';
+        }
+        html += `<button class="${cls}" 
+          data-topic="${topicId}" data-task="${i}" data-opt="${j}"
+          ${answered !== undefined ? 'disabled' : ''}
+          onclick="checkChoice('${topicId}',${i},${j},${task.ans})">
+          <span class="opt-letter">${letters[j]}</span>${opt}
+        </button>`;
+      });
+      html += `</div>`;
+    } else {
+      html += `<div class="task-input-row">
+        <input type="text" class="task-input" id="inp-${topicId}-${i}" 
+          placeholder="Введите ответ..." 
+          ${answered !== undefined ? 'disabled' : ''}
+          value="${answered !== undefined ? (answered ? '✓ Верно' : '✗ Проверьте') : ''}"
+          onkeydown="if(event.key==='Enter') checkInput('${topicId}',${i},'${task.ans}')">
+        <button class="check-btn" onclick="checkInput('${topicId}',${i},'${task.ans}')"
+          ${answered !== undefined ? 'disabled' : ''}>
+          Проверить
+        </button>
+      </div>`;
+    }
+
+    html += `<div class="task-feedback ${answered===true?'ok show':answered===false?'err show':''}" id="fb-${topicId}-${i}">
+      ${answered===true ? '✅ Правильно! +'+data.xpPerTask+' XP' : answered===false ? '❌ Неверно. Попробуй ещё раз.' : ''}
+    </div>`;
+
+    html += `</div>`; // task-card
+  });
+
+  html += `</div></div></div>`; // tasks-list, panel-body, panel
+
+  // ТРЕНАЖЁР
+  html += buildTrainer(data.trainer, topicId);
+
+  document.getElementById('content-area').innerHTML = html;
+  updateStats();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderFormula(q) {
+  return q.replace(/`([^`]+)`/g, '<span class="formula">$1</span>');
+}
+
+// ══════════════════════════════════════════════
+//  ТРЕНАЖЁРЫ
+// ══════════════════════════════════════════════
+function buildTrainer(trainer, topicId) {
+  const configs = {
+    arithmetic:   { label:'Арифметика', fn:'trainerArithmetic' },
+    fractions:    { label:'Дроби', fn:'trainerFractions' },
+    geometry5:    { label:'Геометрия', fn:'trainerGeometry5' },
+    logic5:       { label:'Логика 5кл', fn:'trainerLogic5' },
+    percent:      { label:'Проценты', fn:'trainerPercent' },
+    ratio:        { label:'Пропорции', fn:'trainerRatio' },
+    integers:     { label:'Целые числа', fn:'trainerIntegers' },
+    logic6:       { label:'Логика 6кл', fn:'trainerLogic6' },
+    algebra7:     { label:'Алгебра', fn:'trainerAlgebra7' },
+    equations7:   { label:'Уравнения', fn:'trainerEquations7' },
+    geometry7:    { label:'Геометрия 7', fn:'trainerGeometry7' },
+    logic7:       { label:'Логика 7кл', fn:'trainerLogic7' },
+    quadratic:    { label:'Кв.ур-ния', fn:'trainerQuadratic' },
+    systems:      { label:'Системы', fn:'trainerSystems' },
+    geometry8:    { label:'Геометрия 8', fn:'trainerGeometry8' },
+    logic8:       { label:'Логика 8кл', fn:'trainerLogic8' },
+    functions9:   { label:'Функции', fn:'trainerFunctions9' },
+    progressions: { label:'Прогрессии', fn:'trainerProgressions' },
+    stereo:       { label:'Стереометрия', fn:'trainerStereo' },
+    logic9:       { label:'Логика 9кл', fn:'trainerLogic9' },
+    trig:         { label:'Тригонометрия', fn:'trainerTrig' },
+    comb:         { label:'Комбинаторика', fn:'trainerComb' },
+    probability:  { label:'Вероятность', fn:'trainerProbability' },
+    logic10:      { label:'Логика 10кл', fn:'trainerLogic10' },
+    derivatives:  { label:'Производные', fn:'trainerDerivatives' },
+    integrals:    { label:'Интегралы', fn:'trainerIntegrals' },
+    limits:       { label:'Пределы', fn:'trainerLimits' },
+    logic11:      { label:'Логика 11кл', fn:'trainerLogic11' },
+  };
+  const cfg = configs[trainer.type] || { fn:'trainerGeneric' };
+
+  return `
+    <div class="trainer-card">
+      <h3>⚡ ${trainer.label}</h3>
+      <p class="trainer-desc">${trainer.desc}</p>
+      <div class="trainer-display" id="trainer-q-${topicId}">Нажмите «Новое задание»</div>
+      <div class="trainer-controls">
+        <input type="text" class="trainer-input" id="trainer-inp-${topicId}" 
+               placeholder="Ваш ответ" 
+               onkeydown="if(event.key==='Enter') window.trainerCheck_${topicId}()">
+        <button class="trainer-btn primary" onclick="window.trainerCheck_${topicId}()">Проверить ✓</button>
+        <button class="trainer-btn secondary" onclick="window.trainerNext_${topicId}()">Новое задание ↻</button>
+      </div>
+      <div class="trainer-result" id="trainer-res-${topicId}"></div>
+    </div>
+  `;
+}
+
+// После вставки HTML — инициализируем тренажёр динамически
+function initTrainer(topicId, data) {
+  let currentAnswer = null;
+
+  function nextTask() {
+    const { q, a } = generateTrainerTask(data.trainer.type);
+    currentAnswer = a;
+    const qEl = document.getElementById(`trainer-q-${topicId}`);
+    const inp = document.getElementById(`trainer-inp-${topicId}`);
+    const res = document.getElementById(`trainer-res-${topicId}`);
+    if (qEl) qEl.textContent = q;
+    if (inp) { inp.value = ''; inp.disabled = false; inp.focus(); }
+    if (res) { res.className = 'trainer-result'; res.textContent = ''; }
+  }
+
+  function checkAnswer() {
+    const inp = document.getElementById(`trainer-inp-${topicId}`);
+    const res = document.getElementById(`trainer-res-${topicId}`);
+    if (!inp || !res || currentAnswer === null) return;
+    const userVal = inp.value.trim().replace(',', '.');
+    const correct = String(currentAnswer).replace(',', '.');
+    if (userVal === correct || parseFloat(userVal) === parseFloat(correct)) {
+      res.className = 'trainer-result ok show';
+      res.textContent = '✅ Верно! Молодец!';
+      STATE.xp += 5;
+      saveState();
+      updateStats();
+      showToast('⚡ +5 XP за тренажёр!', 'ok');
+    } else {
+      res.className = 'trainer-result err show';
+      res.textContent = `❌ Неверно. Правильный ответ: ${currentAnswer}`;
+    }
+  }
+
+  window[`trainerNext_${topicId}`] = nextTask;
+  window[`trainerCheck_${topicId}`] = checkAnswer;
+
+  // Первое задание
+  setTimeout(nextTask, 100);
+}
+
+function generateTrainerTask(type) {
+  const r = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
+  switch (type) {
+    case 'arithmetic': {
+      const ops = ['+','-','×','÷'];
+      const op = ops[r(0,3)];
+      if (op==='+') { const a=r(10,99),b=r(10,99); return {q:`${a} + ${b} = ?`, a: a+b}; }
+      if (op==='-') { const a=r(20,99),b=r(1,a); return {q:`${a} − ${b} = ?`, a: a-b}; }
+      if (op==='×') { const a=r(2,12),b=r(2,12); return {q:`${a} × ${b} = ?`, a: a*b}; }
+      const a=r(2,9),b=r(1,9); return {q:`${a*b} ÷ ${a} = ?`, a: b};
+    }
+    case 'fractions': {
+      const d1=r(2,8),d2=r(2,8),n1=r(1,d1-1),n2=r(1,d2-1);
+      const lcm = d1*d2/gcd(d1,d2);
+      const num = n1*(lcm/d1) + n2*(lcm/d2);
+      const g = gcd(num, lcm);
+      return {q:`${n1}/${d1} + ${n2}/${d2} = ? (сократите)`, a:`${num/g}/${lcm/g}`};
+    }
+    case 'geometry5': {
+      const a=r(2,15), b=r(2,15);
+      return {q:`Площадь прямоугольника ${a}×${b} = ?`, a: a*b};
+    }
+    case 'percent': {
+      const total=r(100,1000)/10*10, pct=r(1,9)*10;
+      return {q:`${pct}% от ${total} = ?`, a: total*pct/100};
+    }
+    case 'ratio': {
+      const a=r(2,8),b=r(2,8),c=r(1,5);
+      return {q:`${a}/${b} = x/${b*c}. Найдите x.`, a: a*c};
+    }
+    case 'integers': {
+      const a=r(-10,-1),b=r(-10,-1);
+      return {q:`(${a}) × (${b}) = ?`, a: a*b};
+    }
+    case 'algebra7': {
+      const a=r(2,9),b=r(1,20);
+      return {q:`Решите: ${a}x − ${b} = ${a*r(2,10)-b}. x = ?`, a: r(2,10)};
+    }
+    case 'equations7': {
+      const x=r(2,15),a=r(2,6),b=r(1,10);
+      return {q:`${a}x + ${b} = ${a*x+b}. x = ?`, a: x};
+    }
+    case 'quadratic': {
+      const p=r(2,6),q2=r(1,p-1);
+      return {q:`x² − ${p+q2}x + ${p*q2} = 0. Большой корень:`, a: p};
+    }
+    case 'trig': {
+      const angles = [{d:0,s:0,c:1},{d:30,s:0.5,c:'√3/2'},{d:45,s:'√2/2',c:'√2/2'},{d:60,s:'√3/2',c:0.5},{d:90,s:1,c:0}];
+      const ang = angles[r(0,4)];
+      return {q:`sin(${ang.d}°) = ?`, a: String(ang.s)};
+    }
+    case 'comb': {
+      const n=r(3,7),k=r(1,n-1);
+      const C = factorial(n)/(factorial(k)*factorial(n-k));
+      return {q:`C(${n},${k}) = ?`, a: C};
+    }
+    case 'probability': {
+      const total=r(5,10),fav=r(1,total-1);
+      return {q:`В мешке ${total} шаров, ${fav} красных. P(красный) = ? (дробь a/b)`, a:`${fav}/${total}`};
+    }
+    case 'derivatives': {
+      const n=r(2,5);
+      return {q:`(x^${n})' = ?`, a:`${n}x^${n-1}`};
+    }
+    case 'integrals': {
+      const n=r(1,4);
+      return {q:`∫₀${n} x dx = ?`, a: n*n/2};
+    }
+    case 'limits': {
+      const a=r(2,8);
+      return {q:`lim(x→${a}) [2x + 1] = ?`, a: 2*a+1};
+    }
+    case 'progressions': {
+      const a1=r(1,5),d=r(1,4),n=r(5,10);
+      return {q:`АП: a₁=${a1}, d=${d}. Найдите a₅.`, a: a1+4*d};
+    }
+    case 'geometry7': {
+      const a=r(3,10),b=r(3,10);
+      const h = Math.sqrt(a*a - (b/2)*(b/2));
+      return {q:`Равнобедренный треугольник: боковая ${a}, основание ${b}. Высота ≈ ?`, a: Math.round(h*10)/10};
+    }
+    case 'stereo': {
+      const a=r(2,8);
+      return {q:`Объём куба с ребром ${a}: V = ?`, a: a*a*a};
+    }
+    default: {
+      const a=r(2,20),b=r(2,20);
+      return {q:`${a} + ${b} = ?`, a: a+b};
+    }
+  }
+}
+
+function gcd(a,b) { return b === 0 ? a : gcd(b, a%b); }
+function factorial(n) { let r=1; for(let i=2;i<=n;i++) r*=i; return r; }
+
+// ══════════════════════════════════════════════
+//  ПРОВЕРКА ОТВЕТОВ
+// ══════════════════════════════════════════════
+window.checkChoice = function(topicId, taskIdx, chosenOpt, correctOpt) {
+  const data = TASKS[topicId];
+  const key = `${topicId}_${taskIdx}`;
+  if (STATE.answers[key] !== undefined) return;
+
+  const isCorrect = chosenOpt === correctOpt;
+  STATE.answers[key] = isCorrect;
+
+  // Визуал
+  const card = document.getElementById(`task-${topicId}-${taskIdx}`);
+  const fb = document.getElementById(`fb-${topicId}-${taskIdx}`);
+  const btns = card.querySelectorAll('.option-btn');
+
+  btns.forEach((btn, j) => {
+    btn.disabled = true;
+    if (j === correctOpt) btn.classList.add('correct-ans');
+    if (!isCorrect && j === chosenOpt) btn.classList.add('wrong-ans');
+  });
+
+  if (isCorrect) {
+    STATE.xp += data.xpPerTask;
+    STATE.solved++;
+    STATE.streak++;
+    card.classList.add('correct');
+    fb.className = 'task-feedback ok show';
+    fb.textContent = `✅ Правильно! +${data.xpPerTask} XP`;
+    showToast(`✅ +${data.xpPerTask} XP`, 'ok');
+  } else {
+    STATE.streak = 0;
+    card.classList.add('wrong');
+    fb.className = 'task-feedback err show';
+    fb.textContent = `❌ Неверно. Правильный ответ: ${data.tasks[taskIdx].opts[correctOpt]}`;
+    showToast('❌ Неверно', 'err');
+  }
+  saveState();
+  updateStats();
+  checkMedals();
+};
+
+window.checkInput = function(topicId, taskIdx, correctAns) {
+  const data = TASKS[topicId];
+  const key = `${topicId}_${taskIdx}`;
+  if (STATE.answers[key] !== undefined) return;
+
+  const inp = document.getElementById(`inp-${topicId}-${taskIdx}`);
+  const fb = document.getElementById(`fb-${topicId}-${taskIdx}`);
+  const card = document.getElementById(`task-${topicId}-${taskIdx}`);
+  if (!inp) return;
+
+  const userVal = inp.value.trim().replace(',','.');
+  const correct = String(correctAns).replace(',','.');
+  const isCorrect = userVal === correct ||
+    (parseFloat(userVal) === parseFloat(correct)) ||
+    (userVal.toLowerCase() === correct.toLowerCase());
+
+  STATE.answers[key] = isCorrect;
+
+  inp.disabled = true;
+  const checkBtn = inp.nextElementSibling;
+  if (checkBtn) checkBtn.disabled = true;
+
+  if (isCorrect) {
+    STATE.xp += data.xpPerTask;
+    STATE.solved++;
+    STATE.streak++;
+    card.classList.add('correct');
+    inp.value = '✓ ' + correctAns;
+    fb.className = 'task-feedback ok show';
+    fb.textContent = `✅ Правильно! +${data.xpPerTask} XP`;
+    showToast(`✅ +${data.xpPerTask} XP`, 'ok');
+  } else {
+    STATE.streak = 0;
+    card.classList.add('wrong');
+    fb.className = 'task-feedback err show';
+    fb.textContent = `❌ Неверно. Правильный ответ: ${correctAns}`;
+    showToast('❌ Неверно', 'err');
+  }
+  saveState();
+  updateStats();
+  checkMedals();
+};
+
+// ══════════════════════════════════════════════
+//  UI ОБНОВЛЕНИЯ
+// ══════════════════════════════════════════════
+function updateStats() {
+  document.getElementById('total-xp').textContent = STATE.xp + ' XP';
+  const sc = document.getElementById('solved-count');
+  const st = document.getElementById('streak-count');
+  if (sc) sc.textContent = `Решено: ${STATE.solved}`;
+  if (st) st.textContent = `Серия: ${STATE.streak} ✓`;
+
+  // Тренажёр — инициализация после загрузки темы
+  if (STATE.currentTopic) {
+    const data = TASKS[STATE.currentTopic];
+    if (data) initTrainer(STATE.currentTopic, data);
+  }
+}
+
+function checkMedals() {
+  const medals = [
+    { id:'medal-bronze', threshold:5 },
+    { id:'medal-silver', threshold:15 },
+    { id:'medal-gold',   threshold:30 },
+    { id:'medal-champ',  threshold:50 },
+    { id:'medal-genius', threshold:100 },
+  ];
+  medals.forEach(m => {
+    const el = document.getElementById(m.id);
+    if (el) {
+      const earned = STATE.solved >= m.threshold;
+      const wasEarned = el.classList.contains('earned');
+      if (earned) el.classList.add('earned');
+      if (earned && !wasEarned) showToast('🏅 Новая медаль получена!', 'gold');
+    }
+  });
+}
+
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => { t.className = 'toast'; }, 2800);
+}
+
+// ══════════════════════════════════════════════
+//  МОБИЛЬНЫЙ САЙДБАР
+// ══════════════════════════════════════════════
+document.getElementById('sidebar-toggle').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+});
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+buildSidebar();
+buildQuickBtns();
+checkMedals();
+updateStats();
+</script>
+<script src="variant-loader.js"></script>
+<script src="gallery.js"></script>
+<script src="lightbox.js"></script>
+<script src="progress.js"></script>
+</body>
+</html>

@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+🤖 AI Math Olympiad Center
+</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+
+background:
+linear-gradient(
+135deg,
+#020617,
+#0f172a,
+#1e293b,
+#0f172a
+);
+
+color:white;
+
+overflow-x:hidden;
+
+}
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:200%;
+height:200%;
+
+background:
+radial-gradient(
+circle,
+rgba(59,130,246,.15),
+transparent 60%
+);
+
+animation:
+rotateBg 45s linear infinite;
+
+z-index:-2;
+
+}
+
+@keyframes rotateBg{
+
+from{
+transform:rotate(0deg);
+}
+
+to{
+transform:rotate(360deg);
+}
+
+}
+
+.stars{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background-image:
+radial-gradient(
+white 1px,
+transparent 1px
+);
+
+background-size:
+40px 40px;
+
+opacity:.25;
+
+z-index:-1;
+
+}
+
+.container{
+
+max-width:1400px;
+
+margin:auto;
+
+padding:30px;
+
+}
+
+.hero{
+
+text-align:center;
+
+padding:60px 20px;
+
+}
+
+.robot{
+
+font-size:140px;
+
+animation:
+floatRobot 4s ease-in-out infinite;
+
+}
+
+@keyframes floatRobot{
+
+0%,100%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-20px);
+}
+
+}
+
+.hero h1{
+
+font-size:64px;
+
+color:#60a5fa;
+
+text-shadow:
+0 0 20px #3b82f6,
+0 0 50px #3b82f6;
+
+margin-bottom:15px;
+
+}
+
+.hero h2{
+
+font-size:28px;
+
+color:#e2e8f0;
+
+}
+
+.glass{
+
+background:
+rgba(255,255,255,.06);
+
+backdrop-filter:
+blur(15px);
+
+border:
+1px solid rgba(255,255,255,.15);
+
+padding:25px;
+
+border-radius:25px;
+
+margin-bottom:25px;
+
+box-shadow:
+0 0 30px rgba(0,0,0,.3);
+
+}
+
+.glass h2{
+
+color:#38bdf8;
+
+margin-bottom:15px;
+
+}
+
+.progress-container{
+
+margin-top:20px;
+
+}
+
+.progress{
+
+height:25px;
+
+background:#111827;
+
+border-radius:20px;
+
+overflow:hidden;
+
+}
+
+.progress-bar{
+
+height:100%;
+
+width:0%;
+
+background:
+linear-gradient(
+90deg,
+#22c55e,
+#4ade80
+);
+
+transition:.5s;
+
+}
+
+.score{
+
+margin-top:10px;
+
+font-size:20px;
+
+font-weight:bold;
+
+}
+
+.task{
+
+background:
+rgba(255,255,255,.05);
+
+border-left:
+6px solid #3b82f6;
+
+padding:25px;
+
+border-radius:20px;
+
+margin-bottom:25px;
+
+}
+
+.task h3{
+
+color:#60a5fa;
+
+margin-bottom:15px;
+
+}
+
+.btn{
+
+background:#2563eb;
+
+border:none;
+
+padding:12px 18px;
+
+color:white;
+
+border-radius:10px;
+
+cursor:pointer;
+
+margin:5px;
+
+}
+
+.btn:hover{
+
+background:#3b82f6;
+
+}
+
+.hidden{
+
+display:none;
+
+}
+
+.answer{
+
+margin-top:15px;
+
+padding:15px;
+
+background:#111827;
+
+border-radius:12px;
+
+line-height:1.8;
+
+}
+
+.badge{
+
+display:inline-block;
+
+padding:8px 15px;
+
+border-radius:30px;
+
+background:#22c55e;
+
+margin-bottom:10px;
+
+font-weight:bold;
+
+}
+
+.math{
+
+color:#facc15;
+
+font-weight:bold;
+
+}
+
+.certificate{
+
+text-align:center;
+
+padding:40px;
+
+background:
+linear-gradient(
+135deg,
+#1e293b,
+#0f172a
+);
+
+border-radius:25px;
+
+}
+
+.certificate h2{
+
+color:#facc15;
+
+font-size:42px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="container">
+
+<section class="hero">
+
+<div class="robot">
+🤖
+</div>
+
+<h1>
+AI MATH OLYMPIAD CENTER
+</h1>
+
+<h2>
+🇰🇿 Математикалық Академия Болашағы
+<br>
+🇷🇺 Математическая Академия Будущего
+</h2>
+
+</section>
+
+<div class="glass">
+
+<h2>
+📚 Теория / Теория
+</h2>
+
+<p>
+
+🇰🇿 Ойын теориясы — жеңіс стратегияларын зерттейтін математиканың бөлімі.
+
+</p>
+
+<br>
+
+<p>
+
+🇷🇺 Теория игр — раздел математики, изучающий выигрышные стратегии.
+
+</p>
+
+</div>
+
+<div class="glass">
+
+<h2>
+📊 Прогресс
+</h2>
+
+<div class="progress">
+
+<div
+id="progressBar"
+class="progress-bar">
+</div>
+
+</div>
+
+<div
+class="score">
+
+⭐ Баллы:
+<span id="score">
+0
+</span>
+
+</div>
+
+</div>
+<!-- ========================= -->
+<!-- ЗАДАЧА 1 -->
+<!-- ========================= -->
+
+<div class="task">
+
+<div class="badge">
+🏆 Уровень 1
+</div>
+
+<h3>
+📘 ЕСЕП 1 / ЗАДАЧА 1
+</h3>
+
+<p>
+
+<b>🇰🇿 Шарты</b><br>
+
+Бірінші ойыншы 10-нан аспайтын кез келген бүтін санды атайды.
+Екінші ойыншы оған 10-нан аспайтын сан қосады.
+Кім бірінші болып 100 санына жетсе, сол жеңеді.
+
+</p>
+
+<br>
+
+<p>
+
+<b>🇷🇺 Условие</b><br>
+
+Первый игрок называет любое целое число не больше 10.
+Второй игрок прибавляет число не больше 10.
+Кто первым получит число 100, тот выигрывает.
+
+</p>
+
+<button class="btn"
+onclick="toggle('hint1')">
+
+💡 Кеңес / Подсказка
+
+</button>
+
+<div
+id="hint1"
+class="answer hidden">
+
+100 санынан кері қарай 11 арқылы жүр.
+
+Двигайся назад от 100 шагом 11.
+
+</div>
+
+<button class="btn"
+onclick="toggle('sol1')">
+
+✅ Шешуі / Решение
+
+</button>
+
+<div
+id="sol1"
+class="answer hidden">
+
+<b>🎯 Необходимо заметить</b>
+
+<div class="math">
+10 + 1 = 11
+</div>
+
+<br>
+
+<b>1-қадам / Шаг 1</b>
+
+<div class="math">
+100 → 89 → 78 → 67 → 56 → 45 → 34 → 23 → 12 → 1
+</div>
+
+<br>
+
+<b>2-қадам / Шаг 2</b>
+
+Это контрольные числа.
+
+<br><br>
+
+<b>3-қадам / Шаг 3</b>
+
+Если соперник прибавил 3,
+вы прибавляете 8.
+
+Сумма ходов всегда равна 11.
+
+<br><br>
+
+<b>✅ Ответ</b>
+
+Первый игрок начинает с:
+
+<div class="math">
+1
+</div>
+
+⭐ +10 баллов
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- ЗАДАЧА 2 -->
+<!-- ========================= -->
+
+<div class="task">
+
+<div class="badge">
+🏆 Уровень 2
+</div>
+
+<h3>
+📘 ЕСЕП 2 / ЗАДАЧА 2
+</h3>
+
+<p>
+
+<b>🇰🇿 Шарты</b><br>
+
+Ойыншылар 1,2,3 немесе 4 санын қосады.
+Кім бірінші болып 40 санына жетсе, сол жеңеді.
+
+</p>
+
+<br>
+
+<p>
+
+<b>🇷🇺 Условие</b><br>
+
+Игроки прибавляют числа 1,2,3 или 4.
+Кто первым получит число 40, тот выигрывает.
+
+</p>
+
+<button class="btn"
+onclick="toggle('hint2')">
+
+💡 Кеңес / Подсказка
+
+</button>
+
+<div
+id="hint2"
+class="answer hidden">
+
+40 санынан кері қарай 5-ті азайт.
+
+Двигайся назад от 40 шагом 5.
+
+</div>
+
+<button class="btn"
+onclick="toggle('sol2')">
+
+✅ Шешуі / Решение
+
+</button>
+
+<div
+id="sol2"
+class="answer hidden">
+
+<div class="math">
+4 + 1 = 5
+</div>
+
+<br>
+
+<b>1-қадам / Шаг 1</b>
+
+<div class="math">
+40 → 35 → 30 → 25 → 20 → 15 → 10 → 5
+</div>
+
+<br>
+
+<b>2-қадам / Шаг 2</b>
+
+Это контрольные числа.
+
+<br><br>
+
+<b>3-қадам / Шаг 3</b>
+
+Начинаем с:
+
+<div class="math">
+5
+</div>
+
+После каждого хода соперника
+дополняем сумму до 5.
+
+<br><br>
+
+<b>✅ Ответ</b>
+
+Первый игрок начинает с:
+
+<div class="math">
+5
+</div>
+
+⭐ +10 баллов
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- ЗАДАЧА 3 -->
+<!-- ========================= -->
+
+<div class="task">
+
+<div class="badge">
+🏆 Уровень 3
+</div>
+
+<h3>
+📘 ЕСЕП 3 / ЗАДАЧА 3
+</h3>
+
+<p>
+
+<b>🇰🇿 Шарты</b><br>
+
+Үймеде 31 тас жатыр.
+
+Әр жүрісте үймені екі бөлікке бөлуге болады.
+
+</p>
+
+<br>
+
+<p>
+
+<b>🇷🇺 Условие</b><br>
+
+В куче лежит 31 камень.
+
+За ход можно разделить кучу на две части.
+
+</p>
+
+<button class="btn"
+onclick="toggle('hint3')">
+
+💡 Кеңес / Подсказка
+
+</button>
+
+<div
+id="hint3"
+class="answer hidden">
+
+1 және 2 тасты бөлуге болмайды.
+
+Кучи из 1 и 2 камней делить нельзя.
+
+</div>
+
+<button class="btn"
+onclick="toggle('sol3')">
+
+✅ Шешуі / Решение
+
+</button>
+
+<div
+id="sol3"
+class="answer hidden">
+
+<b>1-қадам / Шаг 1</b>
+
+Проигрышные позиции:
+
+<div class="math">
+1, 2
+</div>
+
+<br>
+
+<b>2-қадам / Шаг 2</b>
+
+3 = 1 + 2
+
+Значит 3 — выигрышная позиция.
+
+<br><br>
+
+<b>3-қадам / Шаг 3</b>
+
+Проигрышные позиции:
+
+<div class="math">
+1,2,5,8,11,14,17,20,23,26,29
+</div>
+
+<br>
+
+31 не входит в этот список.
+
+<br><br>
+
+<b>✅ Ответ</b>
+
+Побеждает первый игрок.
+
+⭐ +15 баллов
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- ЗАДАЧА 4 -->
+<!-- ========================= -->
+
+<div class="task">
+
+<div class="badge">
+🏆 Уровень 4
+</div>
+
+<h3>
+📘 ЕСЕП 4 / ЗАДАЧА 4
+</h3>
+
+<p>
+
+<b>🇰🇿 Шарты</b><br>
+
+Ойын 60 санынан басталады.
+
+Санды оның бөлгішіне азайтуға болады.
+
+</p>
+
+<br>
+
+<p>
+
+<b>🇷🇺 Условие</b><br>
+
+Игра начинается с числа 60.
+
+Можно уменьшить число на любой делитель.
+
+</p>
+
+<button class="btn"
+onclick="toggle('hint4')">
+
+💡 Кеңес / Подсказка
+
+</button>
+
+<div
+id="hint4"
+class="answer hidden">
+
+Алдымен 1,2,3,4,5 сандарын зертте.
+
+Сначала исследуй маленькие числа.
+
+</div>
+
+<button class="btn"
+onclick="toggle('sol4')">
+
+✅ Шешуі / Решение
+
+</button>
+
+<div
+id="sol4"
+class="answer hidden">
+
+<b>1-қадам / Шаг 1</b>
+
+Число 1 — проигрышная позиция.
+
+<br><br>
+
+<b>2-қадам / Шаг 2</b>
+
+2 → 1
+
+Значит 2 — выигрышная позиция.
+
+<br><br>
+
+<b>3-қадам / Шаг 3</b>
+
+Проигрышные позиции:
+
+<div class="math">
+1,3,7,15,31
+</div>
+
+<br>
+
+60 не входит в этот список.
+
+<br><br>
+
+<b>✅ Ответ</b>
+
+Побеждает первый игрок.
+
+⭐ +15 баллов
+
+</div>
+
+</div>
+<!-- ========================= -->
+<!-- ЗАДАЧА 5 -->
+<!-- ========================= -->
+
+<div class="task">
+
+<div class="badge">
+🏆 Уровень 5
+</div>
+
+<h3>
+📘 ЕСЕП 5 / ЗАДАЧА 5
+</h3>
+
+<p>
+
+<b>🇰🇿 Шарты</b><br>
+
+«Ондық» ойыны.
+
+1 немесе 2 санын қосуға болады.
+
+10 санына бірінші жеткен ойыншы жеңеді.
+
+</p>
+
+<p>
+
+<b>🇷🇺 Условие</b><br>
+
+Игра «Десятка».
+
+Можно прибавлять 1 или 2.
+
+Побеждает тот, кто первым получит 10.
+
+</p>
+
+<button class="btn"
+onclick="toggle('hint5')">
+💡 Кеңес / Подсказка
+</button>
+
+<div id="hint5"
+class="answer hidden">
+
+Жеңісті сандарды соңынан ізде.
+
+Ищи выигрышные числа с конца.
+
+</div>
+
+<button class="btn"
+onclick="toggle('sol5');addScore(20)">
+✅ Шешуі / Решение
+</button>
+
+<div id="sol5"
+class="answer hidden">
+
+<div class="math">
+
+10 → 7 → 4 → 1
+
+</div>
+
+<br>
+
+Бақылау сандары / Контрольные числа.
+
+<br><br>
+
+Жауабы / Ответ:
+
+<div class="math">
+1
+</div>
+
+⭐ +20 баллов
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- ЗАДАЧА 6 -->
+<!-- ========================= -->
+
+<div class="task">
+
+<div class="badge">
+🏆 Уровень 6
+</div>
+
+<h3>
+📘 ЕСЕП 6 / ЗАДАЧА 6
+</h3>
+
+<p>
+
+🇰🇿 1-ден 3-ке дейін қосуға болады.
+
+</p>
+
+<p>
+
+🇷🇺 Можно прибавлять от 1 до 3.
+
+</p>
+
+<button class="btn"
+onclick="toggle('hint6')">
+💡 Кеңес / Подсказка
+</button>
+
+<div id="hint6"
+class="answer hidden">
+
+<div class="math">
+3 + 1 = 4
+</div>
+
+</div>
+
+<button class="btn"
+onclick="toggle('sol6');addScore(20)">
+✅ Шешуі / Решение
+</button>
+
+<div id="sol6"
+class="answer hidden">
+
+<div class="math">
+
+10 → 6 → 2
+
+</div>
+
+<br>
+
+Контрольные числа:
+
+<div class="math">
+
+2 → 6 → 10
+
+</div>
+
+<br>
+
+Жауабы / Ответ:
+
+<div class="math">
+2
+</div>
+
+⭐ +20 баллов
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- ЗАДАЧА 7 -->
+<!-- ========================= -->
+
+<div class="task">
+
+<div class="badge">
+🏆 Уровень 7
+</div>
+
+<h3>
+📘 ЕСЕП 7 / ЗАДАЧА 7
+</h3>
+
+<p>
+
+🇰🇿 1-ден 6-ға дейінгі сандарды қосуға болады.
+
+</p>
+
+<p>
+
+🇷🇺 Можно прибавлять числа от 1 до 6.
+
+</p>
+
+<button class="btn"
+onclick="toggle('hint7')">
+💡 Кеңес / Подсказка
+</button>
+
+<div id="hint7"
+class="answer hidden">
+
+<div class="math">
+6 + 1 = 7
+</div>
+
+</div>
+
+<button class="btn"
+onclick="toggle('sol7');addScore(20)">
+✅ Шешуі / Решение
+</button>
+
+<div id="sol7"
+class="answer hidden">
+
+<div class="math">
+
+10 → 3
+
+</div>
+
+<br>
+
+Контрольные числа:
+
+<div class="math">
+
+3 → 10
+
+</div>
+
+<br>
+
+Жауабы / Ответ:
+
+<div class="math">
+3
+</div>
+
+⭐ +20 баллов
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- ЗАДАЧА 8 -->
+<!-- ========================= -->
+
+<div class="task">
+
+<div class="badge">
+🏆 Уровень 8
+</div>
+
+<h3>
+📘 ЕСЕП 8 / ЗАДАЧА 8
+</h3>
+
+<p>
+
+🇰🇿 «Он бестік» ойыны.
+
+15 санына жету керек.
+
+1–5 аралығындағы сандарды қосуға болады.
+
+</p>
+
+<p>
+
+🇷🇺 Игра до 15.
+
+Можно прибавлять числа от 1 до 5.
+
+</p>
+
+<button class="btn"
+onclick="toggle('hint8')">
+💡 Кеңес / Подсказка
+</button>
+
+<div id="hint8"
+class="answer hidden">
+
+<div class="math">
+5 + 1 = 6
+</div>
+
+</div>
+
+<button class="btn"
+onclick="toggle('sol8');addScore(25)">
+✅ Шешуі / Решение
+</button>
+
+<div id="sol8"
+class="answer hidden">
+
+<div class="math">
+
+15 → 9 → 3
+
+</div>
+
+<br>
+
+Контрольные числа:
+
+<div class="math">
+
+3 → 9 → 15
+
+</div>
+
+<br>
+
+Жауабы / Ответ:
+
+<div class="math">
+3
+</div>
+
+⭐ +25 баллов
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- AI КӨМЕКШІ -->
+<!-- ========================= -->
+
+<div class="glass">
+
+<h2>
+🤖 AI-Көмекші / AI-Помощник
+</h2>
+
+<p>
+
+🇰🇿 Егер бақылау сандарын тапсаң,
+ойынды толық басқара аласың.
+
+</p>
+
+<br>
+
+<p>
+
+🇷🇺 Если ты нашёл контрольные числа,
+то можешь полностью управлять игрой.
+
+</p>
+
+</div>
+
+<script>
+
+let score = 0;
+
+function addScore(points){
+
+score += points;
+
+document.getElementById(
+"score"
+).innerText = score;
+
+let percent =
+(score / 270) * 100;
+
+document.getElementById(
+"progressBar"
+).style.width =
+percent + "%";
+
+}
+
+function toggle(id){
+
+let el =
+document.getElementById(id);
+
+if(el.classList.contains("hidden")){
+
+el.classList.remove("hidden");
+
+}else{
+
+el.classList.add("hidden");
+
+}
+
+}
+
+</script>
+<!-- ========================= -->
+<!-- ЗАДАЧА 9 -->
+<!-- ========================= -->
+
+<div class="task">
+
+<div class="badge">
+🏆 Уровень 9
+</div>
+
+<h3>
+📘 ЕСЕП 9 / ЗАДАЧА 9
+</h3>
+
+<p>
+
+🇰🇿 15 санына жету керек.
+
+1-ден 7-ге дейін қосуға болады.
+
+</p>
+
+<p>
+
+🇷🇺 Нужно получить число 15.
+
+Можно прибавлять числа от 1 до 7.
+
+</p>
+
+<button class="btn"
+onclick="toggle('hint9')">
+
+💡 Кеңес / Подсказка
+
+</button>
+
+<div
+id="hint9"
+class="answer hidden">
+
+<div class="math">
+7 + 1 = 8
+</div>
+
+</div>
+
+<button class="btn"
+onclick="toggle('sol9');addScore(25)">
+
+✅ Шешуі / Решение
+
+</button>
+
+<div
+id="sol9"
+class="answer hidden">
+
+<div class="math">
+
+15 → 7
+
+</div>
+
+<br>
+
+Контрольные числа:
+
+<div class="math">
+
+7 → 15
+
+</div>
+
+<br>
+
+<b>Жауабы / Ответ</b>
+
+<div class="math">
+7
+</div>
+
+⭐ +25 баллов
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- ЗАДАЧА 10 -->
+<!-- ========================= -->
+
+<div class="task">
+
+<div class="badge">
+🏆 Уровень 10
+</div>
+
+<h3>
+📘 ЕСЕП 10 / ЗАДАЧА 10
+</h3>
+
+<p>
+
+🇰🇿 Жүздік ойыны.
+
+1 немесе 2 қосуға болады.
+
+</p>
+
+<p>
+
+🇷🇺 Игра до 100.
+
+Можно прибавлять 1 или 2.
+
+</p>
+
+<button class="btn"
+onclick="toggle('hint10')">
+
+💡 Кеңес / Подсказка
+
+</button>
+
+<div
+id="hint10"
+class="answer hidden">
+
+<div class="math">
+2 + 1 = 3
+</div>
+
+</div>
+
+<button class="btn"
+onclick="toggle('sol10');addScore(30)">
+
+✅ Шешуі / Решение
+
+</button>
+
+<div
+id="sol10"
+class="answer hidden">
+
+Контрольные числа:
+
+<div class="math">
+
+1 → 4 → 7 → 10 → ... → 100
+
+</div>
+
+<br>
+
+<b>Жауабы / Ответ</b>
+
+<div class="math">
+1
+</div>
+
+⭐ +30 баллов
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- ЗАДАЧА 11 -->
+<!-- ========================= -->
+
+<div class="task">
+
+<div class="badge">
+🏆 Уровень 11
+</div>
+
+<h3>
+📘 ЕСЕП 11 / ЗАДАЧА 11
+</h3>
+
+<p>
+
+🇰🇿 100 санына жету керек.
+
+1–20 аралығында қосуға болады.
+
+</p>
+
+<p>
+
+🇷🇺 Нужно получить число 100.
+
+Можно прибавлять от 1 до 20.
+
+</p>
+
+<button class="btn"
+onclick="toggle('hint11')">
+
+💡 Кеңес / Подсказка
+
+</button>
+
+<div
+id="hint11"
+class="answer hidden">
+
+<div class="math">
+20 + 1 = 21
+</div>
+
+</div>
+
+<button class="btn"
+onclick="toggle('sol11');addScore(30)">
+
+✅ Шешуі / Решение
+
+</button>
+
+<div
+id="sol11"
+class="answer hidden">
+
+<div class="math">
+
+16 → 37 → 58 → 79 → 100
+
+</div>
+
+<br>
+
+<b>Жауабы / Ответ</b>
+
+<div class="math">
+16
+</div>
+
+⭐ +30 баллов
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- ЗАДАЧА 12 -->
+<!-- ========================= -->
+
+<div class="task">
+
+<div class="badge">
+🏆 Уровень 12
+</div>
+
+<h3>
+📘 ЕСЕП 12 / ЗАДАЧА 12
+</h3>
+
+<p>
+
+🇰🇿 100 санына жету керек.
+
+1–40 аралығында қосуға болады.
+
+</p>
+
+<p>
+
+🇷🇺 Нужно получить число 100.
+
+Можно прибавлять от 1 до 40.
+
+</p>
+
+<button class="btn"
+onclick="toggle('hint12')">
+
+💡 Кеңес / Подсказка
+
+</button>
+
+<div
+id="hint12"
+class="answer hidden">
+
+<div class="math">
+40 + 1 = 41
+</div>
+
+</div>
+
+<button class="btn"
+onclick="toggle('sol12');addScore(30)">
+
+✅ Шешуі / Решение
+
+</button>
+
+<div
+id="sol12"
+class="answer hidden">
+
+<div class="math">
+
+18 → 59 → 100
+
+</div>
+
+<br>
+
+<b>Жауабы / Ответ</b>
+
+<div class="math">
+18
+</div>
+
+⭐ +30 баллов
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- ГОЛОГРАММЫ -->
+<!-- ========================= -->
+
+<div class="glass">
+
+<h2>
+🔷 AI Голограммалар / Голограммы
+</h2>
+
+<div class="math">
+a²+b²=c²
+</div>
+
+<br>
+
+<div class="math">
+10+1=11
+</div>
+
+<br>
+
+<div class="math">
+4+1=5
+</div>
+
+<br>
+
+<div class="math">
+40+1=41
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- ПЕРСОНАЖИ -->
+<!-- ========================= -->
+
+<div class="glass">
+
+<h2>
+👦👧 Болашақ чемпиондары
+</h2>
+
+<p>
+
+🇰🇿 Қазақстанның жас математиктері
+AI көмегімен олимпиадаға дайындалуда.
+
+</p>
+
+<br>
+
+<p>
+
+🇷🇺 Юные математики Казахстана
+готовятся к олимпиадам вместе с AI.
+
+</p>
+
+</div>
+
+<!-- ========================= -->
+<!-- СЕРТИФИКАТ -->
+<!-- ========================= -->
+
+<div class="certificate">
+
+<h2>
+🏆 СЕРТИФИКАТ
+</h2>
+
+<br>
+
+<h3>
+
+Математикалық Академия Болашағы
+
+</h3>
+
+<br>
+
+<h3>
+
+Математическая Академия Будущего
+
+</h3>
+
+<br><br>
+
+<p>
+
+Оқушы барлық 12 деңгейді аяқтады.
+
+</p>
+
+<br>
+
+<p>
+
+Ученик успешно прошёл все 12 уровней.
+
+</p>
+
+<br>
+
+<div class="math">
+
+⭐ 270 БАЛЛОВ ⭐
+
+</div>
+
+<br>
+
+<div class="math">
+
+🏆 МАТЕМАТИКАЛЫҚ АКАДЕМИЯ МАГИСТРІ
+
+</div>
+
+<br>
+
+<div class="math">
+
+🏆 МАГИСТР МАТЕМАТИЧЕСКОЙ АКАДЕМИИ
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

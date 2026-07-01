@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивный тренажер: Математическая зоркость</title>
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --success: #2ecc71;
+            --warning: #e67e22;
+            --purple: #9b59b6;
+            --bg: #f5f7fa;
+            --text: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 60px 20px 40px 20px;
+            overflow-x: hidden;
+        }
+
+        /* ФИШКА 1: Прогресс-бар */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.4s ease, background-color 0.4s ease;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #1a252f;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin: 0;
+        }
+
+        .task-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            border-left: 6px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+        }
+
+        .task-card.step-2 { border-left-color: var(--success); }
+        .task-card.step-3 { border-left-color: var(--warning); }
+        .task-card.step-4 { border-left-color: var(--purple); }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 20px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            background: #eef5fc;
+            color: var(--primary);
+        }
+
+        .step-2 .badge { background: #e8f8f0; color: var(--success); }
+        .step-3 .badge { background: #fdf2e9; color: var(--warning); }
+        .step-4 .badge { background: #f5eef8; color: var(--purple); }
+
+        .task-card h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.4rem;
+        }
+
+        .task-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        /* ФИШКА 2: Аккордеон для подсказок */
+        .hint-btn {
+            background: none;
+            border: 1px dashed #bdc3c7;
+            color: #7f8c8d;
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+        
+        .hint-btn:hover {
+            border-color: #7f8c8d;
+            background: #f8f9fa;
+        }
+
+        .hint-box {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            padding: 0 15px;
+            margin-bottom: 0;
+            border: 1px solid transparent;
+        }
+
+        .hint-box.open {
+            max-height: 200px; /* Достаточно для текста */
+            padding: 15px;
+            margin-bottom: 20px;
+            border-color: #e2e8f0;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            position: relative;
+        }
+
+        input[type="number"] {
+            flex: 1;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input[type="number"]:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+
+        .step-2 input[type="number"]:focus { border-color: var(--success); }
+        .step-3 input[type="number"]:focus { border-color: var(--warning); }
+        .step-4 input[type="number"]:focus { border-color: var(--purple); }
+
+        .action-btn {
+            padding: 14px 28px;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, opacity 0.2s;
+            background-color: var(--primary);
+        }
+
+        .action-btn:hover { opacity: 0.9; }
+        .step-2 .action-btn { background-color: var(--success); }
+        .step-3 .action-btn { background-color: var(--warning); }
+        .step-4 .action-btn { background-color: var(--purple); }
+
+        .result-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .result-message.correct {
+            background-color: #e8f8f0;
+            color: #1e7e34;
+            border: 1px solid #d4edda;
+        }
+
+        .result-message.wrong {
+            background-color: #fdf2f2;
+            color: #b83232;
+            border: 1px solid #f8d7da;
+        }
+
+        /* ФИШКА 3: Элементы Конфетти */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f39c12;
+            border-radius: 50%;
+            animation: poof 0.8s ease-out forwards;
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        @keyframes poof {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(0.4); opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .input-group { flex-direction: column; }
+            .action-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div class="container">
+    <header>
+        <h1>🧠 Математическая зоркость</h1>
+        <p>Пройди 4 шага: от простого перебора к олимпиадным стратегиям</p>
+    </header>
+
+    <div class="task-card step-1" id="card1">
+        <span class="badge">Этап 1: Комбинаторика</span>
+        <h3>Раскрась флаги (Системный перебор)</h3>
+        <p class="task-text">У тебя есть 3 цвета: <b>К</b>расный, <b>Ж</b>елтый и <b>З</b>еленый. Сколько различных трехцветных флагов можно составить, если цвета в одном флаге не должны повторяться?</p>
+        
+        <button class="hint-btn" onclick="toggleHint('hint1')">💡 Взять подсказку у репетитора</button>
+        <div id="hint1" class="hint-box">Зафиксируй первую букву «К» и меняй местами две другие (КЖЗ, КЗЖ). Повтори этот трюк для остальных букв.</div>
+        
+        <div class="input-group">
+            <input type="number" id="input1" placeholder="Твой ответ...">
+            <button class="action-btn" onclick="verifyStep1()">Проверить</button>
+        </div>
+        <div id="msg1" class="result-message"></div>
+    </div>
+
+    <div class="task-card step-2" id="card2">
+        <span class="badge">Этап 2: Разрядный состав</span>
+        <h3>Двузначный конструктор</h3>
+        <p class="task-text">Из цифр <b>4</b> и <b>7</b> составь все возможные двузначные числа (без повторения цифр в числе). Чему равна их <b>общая сумма</b>?</p>
+        
+        <button class="hint-btn" onclick="toggleHint('hint2')">💡 Взять подсказку у репетитора</button>
+        <div id="hint2" class="hint-box">Здесь получится всего два числа. Подумай, как представить их разряды: десятки к десяткам, единицы к единицам.</div>
+        
+        <div class="input-group">
+            <input type="number" id="input2" placeholder="Твой ответ...">
+            <button class="action-btn" onclick="verifyStep2()">Проверить</button>
+        </div>
+        <div id="msg2" class="result-message"></div>
+    </div>
+
+    <div class="task-card step-3" id="card3">
+        <span class="badge">Этап 3: Симметрия</span>
+        <h3>Равновесные пары (Метод Гаусса)</h3>
+        <p class="task-text">Найди сумму этого ряда чисел самым быстрым способом: <br><b>10 + 20 + 30 + 40 + 50 + 60 + 70 + 80</b></p>
+        
+        <button class="hint-btn" onclick="toggleHint('hint3')">💡 Взять подсказку у репетитора</button>
+        <div id="hint3" class="hint-box">Считать по порядку слишком долго! Соедини числа радугой: первое с последним (10 + 80), второе с предпоследним (20 + 70). Сколько таких пар получилось?</div>
+        
+        <div class="input-group">
+            <input type="number" id="input3" placeholder="Твой ответ...">
+            <button class="action-btn" onclick="verifyStep3()">Проверить</button>
+        </div>
+        <div id="msg3" class="result-message"></div>
+    </div>
+
+    <div class="task-card step-4" id="card4">
+        <span class="badge">Этап 4: Высший пилотаж</span>
+        <h3>Олимпиадный финал</h3>
+        <p class="task-text">Из цифр <b>1, 2, 3 и 4</b> составили все возможные двузначные числа без повторений. Какова <b>сумма всех</b> этих получившихся чисел?</p>
+        
+        <button class="hint-btn" onclick="toggleHint('hint4')">💡 Взять подсказку у репетитора</button>
+        <div id="hint4" class="hint-box">Всего будет 12 чисел. Каждая цифра побудет в роли десятков ровно 3 раза и в роли единиц тоже 3 раза. Посчитай отдельно сумму всех десятков и сумму всех единиц!</div>
+        
+        <div class="input-group" id="finalGroup">
+            <input type="number" id="input4" placeholder="Твой ответ...">
+            <button class="action-btn" id="finalBtn" onclick="verifyStep4(event)">Проверить</button>
+        </div>
+        <div id="msg4" class="result-message"></div>
+    </div>
+</div>
+
+<script>
+    // Состояние решенных задач для прогресс-бара
+    const solvedTasks = { 1: false, 2: false, 3: false, 4: false };
+
+    function updateProgress() {
+        const total = Object.keys(solvedTasks).length;
+        const solvedCount = Object.values(solvedTasks).filter(Boolean).length;
+        const percentage = (solvedCount / total) * 100;
+        
+        const bar = document.getElementById('progressBar');
+        bar.style.width = percentage + '%';
+        
+        // Меняем цвет прогресс-бара в зависимости от успеха
+        if(percentage === 100) {
+            bar.style.backgroundColor = 'var(--success)';
+        } else if (percentage >= 50) {
+            bar.style.backgroundColor = 'var(--warning)';
+        } else {
+            bar.style.backgroundColor = 'var(--primary)';
+        }
+    }
+
+    function toggleHint(hintId) {
+        const hint = document.getElementById(hintId);
+        hint.classList.toggle('open');
+    }
+
+    function showMessage(elementId, isCorrect, text) {
+        const element = document.getElementById(elementId);
+        element.className = 'result-message ' + (isCorrect ? 'correct' : 'wrong');
+        element.innerHTML = text;
+        element.style.display = 'block';
+    }
+
+    // Фишка: генератор конфетти
+    function spawnConfetti(event) {
+        const btn = event.currentTarget;
+        const rect = btn.getBoundingClientRect();
+        const container = document.getElementById('card4');
+
+        for (let i = 0; i < 40; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            
+            // Начальная позиция внутри кнопки
+            confetti.style.left = (rect.left - container.getBoundingClientRect().left + rect.width / 2) + 'px';
+            confetti.style.top = (rect.top - container.getBoundingClientRect().top + rect.height / 2) + 'px';
+            
+            // Случайный разлет
+            const x = (Math.random() - 0.5) * 300;
+            const y = (Math.random() - 0.7) * 200 - 50; 
+            confetti.style.setProperty('--x', `${x}px`);
+            confetti.style.setProperty('--y', `${y}px`);
+            
+            // Случайный цвет
+            const colors = ['#2ecc71', '#3498db', '#f1c40f', '#e74c3c', '#e67e22', '#9b59b6'];
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            container.appendChild(confetti);
+            
+            // Удаляем элемент после завершения анимации
+            setTimeout(() => confetti.remove(), 800);
+        }
+    }
+
+    function verifyStep1() {
+        const val = document.getElementById('input1').value;
+        if(val == 6) {
+            showMessage('msg1', true, '🎉 <b>Отлично!</b> Способов действительно 6. Мы получили комбинации: КЖЗ, КЗЖ, ЖКЗ, ЖЗК, ЗКЖ, ЗЖК.');
+            solvedTasks[1] = true;
+        } else {
+            showMessage('msg1', false, '❌ <b>Близко, но не то.</b> Открой подсказку репетитора выше, чтобы подсмотреть хитрый метод перебора.');
+            solvedTasks[1] = false;
+        }
+        updateProgress();
+    }
+
+    function verifyStep2() {
+        const val = document.getElementById('input2').value;
+        if(val == 121) {
+            showMessage('msg2', true, '🎉 <b>Правильно!</b> Это числа 47 и 74. Их сумма: 47 + 74 = 121.');
+            solvedTasks[2] = true;
+        } else {
+            showMessage('msg2', false, '❌ <b>Не совсем.</b> Из цифр 4 и 7 можно составить только два числа: сорок семь и семьдесят четыре. Сложи их вместе.');
+            solvedTasks[2] = false;
+        }
+        updateProgress();
+    }
+
+    function verifyStep3() {
+        const val = document.getElementById('input3').value;
+        if(val == 360) {
+            showMessage('msg3', true, '🎉 <b>Великолепно!</b> Метод Гаусса в действии. У нас есть 4 пары (10+80, 20+70...), каждая из которых равна 90. Итого: 90 × 4 = 360.');
+            solvedTasks[3] = true;
+        } else {
+            showMessage('msg3', false, '❌ <b>Ошибочка.</b> Заметь, что крайние пары дают в сумме 90. Воспользуйся подсказкой репетитора, чтобы узнать число пар.');
+            solvedTasks[3] = false;
+        }
+        updateProgress();
+    }
+
+    function verifyStep4(event) {
+        const val = document.getElementById('input4').value;
+        if(val == 330) {
+            showMessage('msg4', true, '🏆 <b>Ура! Победа!</b> Ты прошел весь тренажер и мыслишь как настоящий олимпиадник. Сумма цифр (1+2+3+4) равна 10. Сумма десятков: 10 × 3 × 10 = 300. Сумма единиц: 10 × 3 × 1 = 30. Всего: 330!');
+            if(!solvedTasks[4]) spawnConfetti(event); // Салют запускается только при первом верном решении
+            solvedTasks[4] = true;
+        } else {
+            showMessage('msg4', false, '❌ <b>Это сложный уровень!</b> Давай разберем секрет в подсказке репетитора. Нажми кнопку выше и попробуй пересчитать.');
+            solvedTasks[4] = false;
+        }
+        updateProgress();
+    }
+</script>
+
+</body>
+</html>
